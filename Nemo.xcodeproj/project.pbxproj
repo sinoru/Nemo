@@ -10,6 +10,18 @@
 		194D743F1B7627CD009A9284 /* Nemo.h in Headers */ = {isa = PBXBuildFile; fileRef = 194D743E1B7627CD009A9284 /* Nemo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		194D74451B7627CD009A9284 /* Nemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 194D74391B7627CD009A9284 /* Nemo.framework */; };
 		194D744C1B7627CD009A9284 /* NemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 194D744B1B7627CD009A9284 /* NemoTests.swift */; };
+		195BABA71B7629FC00AA3586 /* PhotosMenuControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195BABA61B7629FC00AA3586 /* PhotosMenuControllerDelegate.swift */; };
+		197711161B76289B00678CC7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 197711151B76289B00678CC7 /* AppDelegate.swift */; };
+		197711181B76289B00678CC7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 197711171B76289B00678CC7 /* ViewController.swift */; };
+		1977111B1B76289B00678CC7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 197711191B76289B00678CC7 /* Main.storyboard */; };
+		1977111D1B76289B00678CC7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1977111C1B76289B00678CC7 /* Images.xcassets */; };
+		197711201B76289B00678CC7 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1977111E1B76289B00678CC7 /* LaunchScreen.xib */; };
+		1977112C1B76289B00678CC7 /* NemoExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1977112B1B76289B00678CC7 /* NemoExampleTests.swift */; };
+		19B0248D1B76290D007B552C /* PhotosMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B0248C1B76290D007B552C /* PhotosMenuController.swift */; };
+		19B024901B76297C007B552C /* Nemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 194D74391B7627CD009A9284 /* Nemo.framework */; };
+		19FC2E251B762B8C00873FF7 /* RecentPhotosCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FC2E241B762B8C00873FF7 /* RecentPhotosCollectionViewController.swift */; };
+		19FC2E2A1B766C6C00873FF7 /* RecentPhotosPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FC2E291B766C6C00873FF7 /* RecentPhotosPhotoCollectionViewCell.swift */; };
+		19FC2E321B76707400873FF7 /* Nemo.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 194D74391B7627CD009A9284 /* Nemo.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -20,7 +32,35 @@
 			remoteGlobalIDString = 194D74381B7627CD009A9284;
 			remoteInfo = Nemo;
 		};
+		197711261B76289B00678CC7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 194D74301B7627CD009A9284 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 197711101B76289B00678CC7;
+			remoteInfo = NemoExample;
+		};
+		19B0248E1B762976007B552C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 194D74301B7627CD009A9284 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 194D74381B7627CD009A9284;
+			remoteInfo = Nemo;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		19FC2E331B76707500873FF7 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				19FC2E321B76707400873FF7 /* Nemo.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		194D74391B7627CD009A9284 /* Nemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Nemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -29,6 +69,20 @@
 		194D74441B7627CD009A9284 /* NemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		194D744A1B7627CD009A9284 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		194D744B1B7627CD009A9284 /* NemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NemoTests.swift; sourceTree = "<group>"; };
+		195BABA61B7629FC00AA3586 /* PhotosMenuControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosMenuControllerDelegate.swift; sourceTree = "<group>"; };
+		197711111B76289B00678CC7 /* NemoExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NemoExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		197711141B76289B00678CC7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		197711151B76289B00678CC7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		197711171B76289B00678CC7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		1977111A1B76289B00678CC7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		1977111C1B76289B00678CC7 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		1977111F1B76289B00678CC7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		197711251B76289B00678CC7 /* NemoExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NemoExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1977112A1B76289B00678CC7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1977112B1B76289B00678CC7 /* NemoExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NemoExampleTests.swift; sourceTree = "<group>"; };
+		19B0248C1B76290D007B552C /* PhotosMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosMenuController.swift; sourceTree = "<group>"; };
+		19FC2E241B762B8C00873FF7 /* RecentPhotosCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentPhotosCollectionViewController.swift; sourceTree = "<group>"; };
+		19FC2E291B766C6C00873FF7 /* RecentPhotosPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentPhotosPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +101,21 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		1977110E1B76289B00678CC7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				19B024901B76297C007B552C /* Nemo.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		197711221B76289B00678CC7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -55,6 +124,8 @@
 			children = (
 				194D743B1B7627CD009A9284 /* Nemo */,
 				194D74481B7627CD009A9284 /* NemoTests */,
+				197711121B76289B00678CC7 /* NemoExample */,
+				197711281B76289B00678CC7 /* NemoExampleTests */,
 				194D743A1B7627CD009A9284 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -64,6 +135,8 @@
 			children = (
 				194D74391B7627CD009A9284 /* Nemo.framework */,
 				194D74441B7627CD009A9284 /* NemoTests.xctest */,
+				197711111B76289B00678CC7 /* NemoExample.app */,
+				197711251B76289B00678CC7 /* NemoExampleTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -72,6 +145,10 @@
 			isa = PBXGroup;
 			children = (
 				194D743E1B7627CD009A9284 /* Nemo.h */,
+				19B0248C1B76290D007B552C /* PhotosMenuController.swift */,
+				195BABA61B7629FC00AA3586 /* PhotosMenuControllerDelegate.swift */,
+				19FC2E241B762B8C00873FF7 /* RecentPhotosCollectionViewController.swift */,
+				19FC2E291B766C6C00873FF7 /* RecentPhotosPhotoCollectionViewCell.swift */,
 				194D743C1B7627CD009A9284 /* Supporting Files */,
 			);
 			path = Nemo;
@@ -98,6 +175,44 @@
 			isa = PBXGroup;
 			children = (
 				194D744A1B7627CD009A9284 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		197711121B76289B00678CC7 /* NemoExample */ = {
+			isa = PBXGroup;
+			children = (
+				197711151B76289B00678CC7 /* AppDelegate.swift */,
+				197711171B76289B00678CC7 /* ViewController.swift */,
+				197711191B76289B00678CC7 /* Main.storyboard */,
+				1977111C1B76289B00678CC7 /* Images.xcassets */,
+				1977111E1B76289B00678CC7 /* LaunchScreen.xib */,
+				197711131B76289B00678CC7 /* Supporting Files */,
+			);
+			path = NemoExample;
+			sourceTree = "<group>";
+		};
+		197711131B76289B00678CC7 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				197711141B76289B00678CC7 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		197711281B76289B00678CC7 /* NemoExampleTests */ = {
+			isa = PBXGroup;
+			children = (
+				1977112B1B76289B00678CC7 /* NemoExampleTests.swift */,
+				197711291B76289B00678CC7 /* Supporting Files */,
+			);
+			path = NemoExampleTests;
+			sourceTree = "<group>";
+		};
+		197711291B76289B00678CC7 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1977112A1B76289B00678CC7 /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -152,6 +267,43 @@
 			productReference = 194D74441B7627CD009A9284 /* NemoTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		197711101B76289B00678CC7 /* NemoExample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 197711311B76289B00678CC7 /* Build configuration list for PBXNativeTarget "NemoExample" */;
+			buildPhases = (
+				1977110D1B76289B00678CC7 /* Sources */,
+				1977110E1B76289B00678CC7 /* Frameworks */,
+				1977110F1B76289B00678CC7 /* Resources */,
+				19FC2E331B76707500873FF7 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				19B0248F1B762976007B552C /* PBXTargetDependency */,
+			);
+			name = NemoExample;
+			productName = NemoExample;
+			productReference = 197711111B76289B00678CC7 /* NemoExample.app */;
+			productType = "com.apple.product-type.application";
+		};
+		197711241B76289B00678CC7 /* NemoExampleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 197711321B76289B00678CC7 /* Build configuration list for PBXNativeTarget "NemoExampleTests" */;
+			buildPhases = (
+				197711211B76289B00678CC7 /* Sources */,
+				197711221B76289B00678CC7 /* Frameworks */,
+				197711231B76289B00678CC7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				197711271B76289B00678CC7 /* PBXTargetDependency */,
+			);
+			name = NemoExampleTests;
+			productName = NemoExampleTests;
+			productReference = 197711251B76289B00678CC7 /* NemoExampleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -167,6 +319,13 @@
 					194D74431B7627CD009A9284 = {
 						CreatedOnToolsVersion = 6.4;
 					};
+					197711101B76289B00678CC7 = {
+						CreatedOnToolsVersion = 6.4;
+					};
+					197711241B76289B00678CC7 = {
+						CreatedOnToolsVersion = 6.4;
+						TestTargetID = 197711101B76289B00678CC7;
+					};
 				};
 			};
 			buildConfigurationList = 194D74331B7627CD009A9284 /* Build configuration list for PBXProject "Nemo" */;
@@ -175,6 +334,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 194D742F1B7627CD009A9284;
 			productRefGroup = 194D743A1B7627CD009A9284 /* Products */;
@@ -183,6 +343,8 @@
 			targets = (
 				194D74381B7627CD009A9284 /* Nemo */,
 				194D74431B7627CD009A9284 /* NemoTests */,
+				197711101B76289B00678CC7 /* NemoExample */,
+				197711241B76289B00678CC7 /* NemoExampleTests */,
 			);
 		};
 /* End PBXProject section */
@@ -202,6 +364,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		1977110F1B76289B00678CC7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1977111B1B76289B00678CC7 /* Main.storyboard in Resources */,
+				197711201B76289B00678CC7 /* LaunchScreen.xib in Resources */,
+				1977111D1B76289B00678CC7 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		197711231B76289B00678CC7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -209,6 +388,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				195BABA71B7629FC00AA3586 /* PhotosMenuControllerDelegate.swift in Sources */,
+				19FC2E251B762B8C00873FF7 /* RecentPhotosCollectionViewController.swift in Sources */,
+				19B0248D1B76290D007B552C /* PhotosMenuController.swift in Sources */,
+				19FC2E2A1B766C6C00873FF7 /* RecentPhotosPhotoCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,6 +403,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		1977110D1B76289B00678CC7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				197711181B76289B00678CC7 /* ViewController.swift in Sources */,
+				197711161B76289B00678CC7 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		197711211B76289B00678CC7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1977112C1B76289B00678CC7 /* NemoExampleTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -228,7 +428,36 @@
 			target = 194D74381B7627CD009A9284 /* Nemo */;
 			targetProxy = 194D74461B7627CD009A9284 /* PBXContainerItemProxy */;
 		};
+		197711271B76289B00678CC7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 197711101B76289B00678CC7 /* NemoExample */;
+			targetProxy = 197711261B76289B00678CC7 /* PBXContainerItemProxy */;
+		};
+		19B0248F1B762976007B552C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 194D74381B7627CD009A9284 /* Nemo */;
+			targetProxy = 19B0248E1B762976007B552C /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		197711191B76289B00678CC7 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1977111A1B76289B00678CC7 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		1977111E1B76289B00678CC7 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1977111F1B76289B00678CC7 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		194D744D1B7627CD009A9284 /* Debug */ = {
@@ -380,6 +609,64 @@
 			};
 			name = Release;
 		};
+		1977112D1B76289B00678CC7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = NemoExample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		1977112E1B76289B00678CC7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = NemoExample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		1977112F1B76289B00678CC7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = NemoExampleTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NemoExample.app/NemoExample";
+			};
+			name = Debug;
+		};
+		197711301B76289B00678CC7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = NemoExampleTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NemoExample.app/NemoExample";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -399,6 +686,7 @@
 				194D74511B7627CD009A9284 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		194D74521B7627CD009A9284 /* Build configuration list for PBXNativeTarget "NemoTests" */ = {
 			isa = XCConfigurationList;
@@ -407,6 +695,25 @@
 				194D74541B7627CD009A9284 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		197711311B76289B00678CC7 /* Build configuration list for PBXNativeTarget "NemoExample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1977112D1B76289B00678CC7 /* Debug */,
+				1977112E1B76289B00678CC7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		197711321B76289B00678CC7 /* Build configuration list for PBXNativeTarget "NemoExampleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1977112F1B76289B00678CC7 /* Debug */,
+				197711301B76289B00678CC7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
