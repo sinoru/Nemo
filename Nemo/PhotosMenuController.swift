@@ -10,7 +10,7 @@ import UIKit
 import MobileCoreServices
 
 @objc(NMPhotosMenuController)
-public class PhotosMenuController: UIAlertController, UIPopoverPresentationControllerDelegate {
+public class PhotosMenuController: UIAlertController {
 
     public var delegate: protocol<PhotosMenuControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>?
     
@@ -32,6 +32,7 @@ public class PhotosMenuController: UIAlertController, UIPopoverPresentationContr
         // Do any additional setup after loading the view.
         self.recentPhotosCollectionViewController = RecentPhotosCollectionViewController()
         self.recentPhotosCollectionViewController.preferredContentSize = CGSize(width: 0.0, height: 180.0)
+        self.recentPhotosCollectionViewController.delegate = self
         
         self.photoLibraryAction = UIAlertAction(title: "Photo Library", style: .Default, handler: { (action) -> Void in
             let imagePickerController = UIImagePickerController()
@@ -62,6 +63,7 @@ public class PhotosMenuController: UIAlertController, UIPopoverPresentationContr
     
     public override func viewWillAppear(animated: Bool) {
         self.setValue(self.recentPhotosCollectionViewController, forKey: "contentViewController")
+        super.addAction(self.recentPhotosCollectionViewController.addPhotoAction)
         
         super.addAction(self.photoLibraryAction)
         super.addAction(self.cameraAction)
@@ -99,4 +101,10 @@ public class PhotosMenuController: UIAlertController, UIPopoverPresentationContr
     }
     */
 
+}
+
+extension PhotosMenuController: RecentPhotosCollectionViewControllerDelegate {
+    func recentPhotosCollectionViewController(controller: RecentPhotosCollectionViewController, didFinishPickingPhotos photos: [PHAsset]) {
+        self.delegate?.photosMenuController?(self, didFinishPickingPhotos: photos)
+    }
 }

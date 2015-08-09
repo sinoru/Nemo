@@ -17,6 +17,7 @@
 		1977111D1B76289B00678CC7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1977111C1B76289B00678CC7 /* Images.xcassets */; };
 		197711201B76289B00678CC7 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1977111E1B76289B00678CC7 /* LaunchScreen.xib */; };
 		1977112C1B76289B00678CC7 /* NemoExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1977112B1B76289B00678CC7 /* NemoExampleTests.swift */; };
+		1984BA921B77B9E9009731F8 /* RecentPhotosCollectionViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1984BA911B77B9E9009731F8 /* RecentPhotosCollectionViewControllerDelegate.swift */; };
 		19B0248D1B76290D007B552C /* PhotosMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B0248C1B76290D007B552C /* PhotosMenuController.swift */; };
 		19B024901B76297C007B552C /* Nemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 194D74391B7627CD009A9284 /* Nemo.framework */; };
 		19FC2E251B762B8C00873FF7 /* RecentPhotosCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FC2E241B762B8C00873FF7 /* RecentPhotosCollectionViewController.swift */; };
@@ -80,6 +81,7 @@
 		197711251B76289B00678CC7 /* NemoExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NemoExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1977112A1B76289B00678CC7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1977112B1B76289B00678CC7 /* NemoExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NemoExampleTests.swift; sourceTree = "<group>"; };
+		1984BA911B77B9E9009731F8 /* RecentPhotosCollectionViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentPhotosCollectionViewControllerDelegate.swift; sourceTree = "<group>"; };
 		19B0248C1B76290D007B552C /* PhotosMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosMenuController.swift; sourceTree = "<group>"; };
 		19FC2E241B762B8C00873FF7 /* RecentPhotosCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentPhotosCollectionViewController.swift; sourceTree = "<group>"; };
 		19FC2E291B766C6C00873FF7 /* RecentPhotosPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentPhotosPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 				19B0248C1B76290D007B552C /* PhotosMenuController.swift */,
 				195BABA61B7629FC00AA3586 /* PhotosMenuControllerDelegate.swift */,
 				19FC2E241B762B8C00873FF7 /* RecentPhotosCollectionViewController.swift */,
+				1984BA911B77B9E9009731F8 /* RecentPhotosCollectionViewControllerDelegate.swift */,
 				19FC2E291B766C6C00873FF7 /* RecentPhotosPhotoCollectionViewCell.swift */,
 				194D743C1B7627CD009A9284 /* Supporting Files */,
 			);
@@ -390,6 +393,7 @@
 			files = (
 				195BABA71B7629FC00AA3586 /* PhotosMenuControllerDelegate.swift in Sources */,
 				19FC2E251B762B8C00873FF7 /* RecentPhotosCollectionViewController.swift in Sources */,
+				1984BA921B77B9E9009731F8 /* RecentPhotosCollectionViewControllerDelegate.swift in Sources */,
 				19B0248D1B76290D007B552C /* PhotosMenuController.swift in Sources */,
 				19FC2E2A1B766C6C00873FF7 /* RecentPhotosPhotoCollectionViewCell.swift in Sources */,
 			);

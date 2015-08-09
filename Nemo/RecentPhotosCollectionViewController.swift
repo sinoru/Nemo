@@ -8,32 +8,39 @@
 
 import UIKit
 import Photos
-import AssetsLibrary
 
 let reusePhotoIdentifier = "PhotoCell"
 
 class RecentPhotosCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UINavigationControllerDelegate, PHPhotoLibraryChangeObserver, UIImagePickerControllerDelegate {
 
-    var assetsFetchResults: PHFetchResult!
-    let maxFetchResultsCount = 70
-    let imageManager = PHCachingImageManager()
-    var cachingImageThumbnailSize = CGSizeZero
-    let collectionViewFlowLayout: UICollectionViewFlowLayout
-    var selectedAssets: [PHAsset] {
+    var addPhotoAction: UIAlertAction!
+    var delegate: RecentPhotosCollectionViewControllerDelegate?
+    
+    private var selectedAssets: [PHAsset] {
         return (self.collectionView?.indexPathsForSelectedItems() as? [NSIndexPath])?.map({ self.assetsFetchResults[$0.item] as! PHAsset }) ?? []
     }
-    var addPhotoAction: UIAlertAction?
     
-    var recentPhotosSection: Int = 0
+    private var assetsFetchResults: PHFetchResult!
+    private let maxFetchResultsCount = 70
+    private let imageManager = PHCachingImageManager()
+    private var cachingImageThumbnailSize = CGSizeZero
+    private let collectionViewFlowLayout: UICollectionViewFlowLayout
+    
+    private var recentPhotosSection: Int = 0
     
     required init() {
-        collectionViewFlowLayout = UICollectionViewFlowLayout()
-        collectionViewFlowLayout.scrollDirection = .Horizontal
-        collectionViewFlowLayout.minimumLineSpacing = 4.0
-        collectionViewFlowLayout.minimumInteritemSpacing = 4.0
-        collectionViewFlowLayout.sectionInset = UIEdgeInsets(top: 6.0, left: 6.0, bottom: 6.0, right: 6.0)
+        self.collectionViewFlowLayout = UICollectionViewFlowLayout()
+        self.collectionViewFlowLayout.scrollDirection = .Horizontal
+        self.collectionViewFlowLayout.minimumLineSpacing = 4.0
+        self.collectionViewFlowLayout.minimumInteritemSpacing = 4.0
+        self.collectionViewFlowLayout.sectionInset = UIEdgeInsets(top: 6.0, left: 6.0, bottom: 6.0, right: 6.0)
         
         super.init(collectionViewLayout: collectionViewFlowLayout)
+        
+        self.addPhotoAction = UIAlertAction(title: NSString.localizedStringWithFormat(NSLocalizedString("Add %d Photos", comment: ""), 0) as String, style: .Default, handler: { (action) -> Void in
+            self.delegate?.recentPhotosCollectionViewController(self, didFinishPickingPhotos: self.selectedAssets)
+        })
+        self.addPhotoAction.enabled = false
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -252,16 +259,16 @@ class RecentPhotosCollectionViewController: UICollectionViewController, UICollec
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         switch (indexPath.section, indexPath.item) {
         default:
-            self.addPhotoAction?.enabled = (collectionView.indexPathsForSelectedItems().count != 0)
-            self.addPhotoAction?.setValue(NSString.localizedStringWithFormat(NSLocalizedString("Add %d Photos", comment: ""), collectionView.indexPathsForSelectedItems().count), forKey: "title")
+            self.addPhotoAction.enabled = (collectionView.indexPathsForSelectedItems().count != 0)
+            self.addPhotoAction.setValue(NSString.localizedStringWithFormat(NSLocalizedString("Add %d Photos", comment: ""), collectionView.indexPathsForSelectedItems().count), forKey: "title")
         }
     }
     
     override func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
         switch (indexPath.section, indexPath.item) {
         default:
-            self.addPhotoAction?.enabled = (collectionView.indexPathsForSelectedItems().count != 0)
-            self.addPhotoAction?.setValue(NSString.localizedStringWithFormat(NSLocalizedString("Add %d Photos", comment: ""), collectionView.indexPathsForSelectedItems().count), forKey: "title")
+            self.addPhotoAction.enabled = (collectionView.indexPathsForSelectedItems().count != 0)
+            self.addPhotoAction.setValue(NSString.localizedStringWithFormat(NSLocalizedString("Add %d Photos", comment: ""), collectionView.indexPathsForSelectedItems().count), forKey: "title")
         }
     }
     
