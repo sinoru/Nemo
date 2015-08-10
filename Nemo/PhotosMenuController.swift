@@ -52,6 +52,8 @@ public class PhotosMenuController: UIAlertController {
             imagePickerController.popoverPresentationController?.sourceView = self.capturedPopoverPresentationControllerSourceView
             imagePickerController.popoverPresentationController?.sourceRect = self.capturedPopoverPresentationControllerSourceRect ?? CGRectZero
             
+            self.delegate?.photosMenuController?(self, didPickImagePicker: imagePickerController)
+            
             self.capturedPresentingViewController?.presentViewController(imagePickerController, animated: true, completion: nil)
         })
         
@@ -61,6 +63,8 @@ public class PhotosMenuController: UIAlertController {
             imagePickerController.modalPresentationStyle = .FullScreen
             imagePickerController.sourceType = .Camera
             imagePickerController.mediaTypes = self.mediaTypesForImagePicker
+            
+            self.delegate?.photosMenuController?(self, didPickImagePicker: imagePickerController)
             
             self.capturedPresentingViewController?.presentViewController(imagePickerController, animated: true, completion: nil)
         })
@@ -137,6 +141,6 @@ public class PhotosMenuController: UIAlertController {
 
 extension PhotosMenuController: RecentPhotosCollectionViewControllerDelegate {
     func recentPhotosCollectionViewController(controller: RecentPhotosCollectionViewController, didFinishPickingPhotos photos: [PHAsset]) {
-        self.delegate?.photosMenuController?(self, didFinishPickingPhotos: photos)
+        self.delegate?.photosMenuController?(self, didPickPhotos: photos)
     }
 }

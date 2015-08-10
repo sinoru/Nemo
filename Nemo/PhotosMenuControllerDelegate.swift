@@ -11,6 +11,7 @@ import Photos
 
 @objc(NMPhotosMenuControllerDelegate)
 public protocol PhotosMenuControllerDelegate: NSObjectProtocol {
-    optional func photosMenuController(controller: PhotosMenuController, didFinishPickingPhotos photos: [PHAsset])
+    optional func photosMenuController(controller: PhotosMenuController, didPickPhotos photos: [PHAsset])
+    optional func photosMenuController(controller: PhotosMenuController, didPickImagePicker imagePicker: UIImagePickerController)
     optional func photosMenuControllerDidCancel(controller: PhotosMenuController)
 }
