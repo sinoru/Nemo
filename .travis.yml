@@ -1,0 +1,10 @@
+language: objective-c
+osx_image: beta-xcode6.3
+env:
+  global:
+  - XCODE_PROJECT=Nemo.xcodeproj
+  - XCODE_CONFIGURATION=Release
+  - XCODE_SCHEME=Nemo
+  - XCODE_SDK=iphonesimulator
+script:
+- xctool -project $XCODE_PROJECT -scheme $XCODE_SCHEME -configuration $XCODE_CONFIGURATION -sdk $XCODE_SDK analyze
