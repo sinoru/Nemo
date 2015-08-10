@@ -23,6 +23,7 @@
 		19B0248D1B76290D007B552C /* PhotosMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B0248C1B76290D007B552C /* PhotosMenuController.swift */; };
 		19B024901B76297C007B552C /* Nemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 194D74391B7627CD009A9284 /* Nemo.framework */; };
 		19B142FF1B78871F0047C106 /* NSBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B142FE1B78871F0047C106 /* NSBundle.swift */; };
+		19B143051B7896EC0047C106 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B143041B7896EC0047C106 /* CollectionViewCell.swift */; };
 		19FC2E251B762B8C00873FF7 /* RecentPhotosCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FC2E241B762B8C00873FF7 /* RecentPhotosCollectionViewController.swift */; };
 		19FC2E2A1B766C6C00873FF7 /* RecentPhotosPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19FC2E291B766C6C00873FF7 /* RecentPhotosPhotoCollectionViewCell.swift */; };
 		19FC2E321B76707400873FF7 /* Nemo.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 194D74391B7627CD009A9284 /* Nemo.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -93,6 +94,7 @@
 		19B143011B7888720047C106 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = ko; path = ko.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		19B143021B78887C0047C106 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		19B143031B78887C0047C106 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = ja; path = ja.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		19B143041B7896EC0047C106 /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		19FC2E241B762B8C00873FF7 /* RecentPhotosCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentPhotosCollectionViewController.swift; sourceTree = "<group>"; };
 		19FC2E291B766C6C00873FF7 /* RecentPhotosPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentPhotosPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -200,6 +202,7 @@
 			children = (
 				197711151B76289B00678CC7 /* AppDelegate.swift */,
 				197711171B76289B00678CC7 /* ViewController.swift */,
+				19B143041B7896EC0047C106 /* CollectionViewCell.swift */,
 				197711191B76289B00678CC7 /* Main.storyboard */,
 				1977111C1B76289B00678CC7 /* Images.xcassets */,
 				1977111E1B76289B00678CC7 /* LaunchScreen.xib */,
@@ -431,6 +434,7 @@
 			files = (
 				197711181B76289B00678CC7 /* ViewController.swift in Sources */,
 				197711161B76289B00678CC7 /* AppDelegate.swift in Sources */,
+				19B143051B7896EC0047C106 /* CollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

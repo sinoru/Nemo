@@ -11,16 +11,15 @@ import Nemo
 
 let reuseIdentifier = "Cell"
 
-class ViewController: UICollectionViewController {
+class ViewController: UICollectionViewController, PhotosMenuControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    var images: [UIImage] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-        
-        // Register cell classes
-        self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         
         // Do any additional setup after loading the view.
         self.view.backgroundColor = UIColor.clearColor()
@@ -43,7 +42,7 @@ class ViewController: UICollectionViewController {
     
     @IBAction func addPhotos(sender: AnyObject) {
         let photosMenuController = Nemo.PhotosMenuController()
-        photosMenuController.modalPresentationStyle = .Popover
+        photosMenuController.delegate = self
         
         if let popoverPresentationController = photosMenuController.popoverPresentationController {
             popoverPresentationController.barButtonItem = sender as? UIBarButtonItem
@@ -55,20 +54,19 @@ class ViewController: UICollectionViewController {
     // MARK: UICollectionViewDataSource
     
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        //#warning Incomplete method implementation -- Return the number of sections
-        return 0
+        return 1
     }
     
     
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //#warning Incomplete method implementation -- Return the number of items in the section
-        return 0
+        return images.count
     }
     
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! UICollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! CollectionViewCell
         
         // Configure the cell
+        cell.imageView.image = self.images[indexPath.row]
         
         return cell
     }
@@ -104,4 +102,30 @@ class ViewController: UICollectionViewController {
     }
     */
     
+    // MARK: PhotosMenuControllerDelegate
+    func photosMenuController(controller: PhotosMenuController, didPickPhotos photos: [PHAsset]) {
+        for photo in photos {
+            let options = PHImageRequestOptions()
+            options.deliveryMode = .HighQualityFormat
+            options.synchronous = true
+            
+            PHImageManager.defaultManager().requestImageForAsset(photo, targetSize: CGSizeMake(100.0, 100.0), contentMode: .AspectFill, options: options, resultHandler: { (result, info) -> Void in
+                if let result = result {
+                    self.images.append(result)
+                }
+            })
+        }
+        
+        self.collectionView!.reloadData()
+    }
+    
+    // MARK: UIImagePickerControllerDelegate
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            self.images.append(image)
+            self.collectionView!.reloadData()
+        }
+        
+        picker.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+    }
 }
