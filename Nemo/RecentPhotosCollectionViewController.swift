@@ -37,7 +37,7 @@ class RecentPhotosCollectionViewController: UICollectionViewController, UICollec
         
         super.init(collectionViewLayout: collectionViewFlowLayout)
         
-        self.addPhotoAction = UIAlertAction(title: NSString.localizedStringWithFormat(NSLocalizedString("Add %d Photos", comment: ""), 0) as String, style: .Default, handler: { (action) -> Void in
+        self.addPhotoAction = UIAlertAction(title: NSString.localizedStringWithFormat(NSLocalizedString("Add %d Photos", bundle: NSBundle.nemoBundle(), comment: ""), 0) as String, style: .Default, handler: { (action) -> Void in
             self.delegate?.recentPhotosCollectionViewController(self, didFinishPickingPhotos: self.selectedAssets)
         })
         self.addPhotoAction.enabled = false
@@ -260,7 +260,7 @@ class RecentPhotosCollectionViewController: UICollectionViewController, UICollec
         switch (indexPath.section, indexPath.item) {
         default:
             self.addPhotoAction.enabled = (collectionView.indexPathsForSelectedItems().count != 0)
-            self.addPhotoAction.setValue(NSString.localizedStringWithFormat(NSLocalizedString("Add %d Photos", comment: ""), collectionView.indexPathsForSelectedItems().count), forKey: "title")
+            self.addPhotoAction.setValue(NSString.localizedStringWithFormat(NSLocalizedString("Add %d Photos", bundle: NSBundle.nemoBundle(), comment: ""), collectionView.indexPathsForSelectedItems().count), forKey: "title")
         }
     }
     
@@ -268,7 +268,7 @@ class RecentPhotosCollectionViewController: UICollectionViewController, UICollec
         switch (indexPath.section, indexPath.item) {
         default:
             self.addPhotoAction.enabled = (collectionView.indexPathsForSelectedItems().count != 0)
-            self.addPhotoAction.setValue(NSString.localizedStringWithFormat(NSLocalizedString("Add %d Photos", comment: ""), collectionView.indexPathsForSelectedItems().count), forKey: "title")
+            self.addPhotoAction.setValue(NSString.localizedStringWithFormat(NSLocalizedString("Add %d Photos", bundle: NSBundle.nemoBundle(), comment: ""), collectionView.indexPathsForSelectedItems().count), forKey: "title")
         }
     }
     

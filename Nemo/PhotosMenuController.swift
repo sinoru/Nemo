@@ -14,6 +14,12 @@ public class PhotosMenuController: UIAlertController {
 
     public var delegate: protocol<PhotosMenuControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>?
     
+    public var mediaTypesForImagePicker: [String] = [kUTTypeImage as String] {
+        didSet {
+            self.updateCameraActionTitle()
+        }
+    }
+    
     private var recentPhotosCollectionViewController: RecentPhotosCollectionViewController!
     
     private var photoLibraryAction: UIAlertAction!
@@ -34,13 +40,13 @@ public class PhotosMenuController: UIAlertController {
         self.recentPhotosCollectionViewController.preferredContentSize = CGSize(width: 0.0, height: 180.0)
         self.recentPhotosCollectionViewController.delegate = self
         
-        self.photoLibraryAction = UIAlertAction(title: "Photo Library", style: .Default, handler: { (action) -> Void in
+        self.photoLibraryAction = UIAlertAction(title: NSLocalizedString("Photo Library", bundle: NSBundle.nemoBundle(), comment: ""), style: .Default, handler: { (action) -> Void in
             let imagePickerController = UIImagePickerController()
             imagePickerController.delegate = self.delegate
             imagePickerController.modalPresentationStyle = .Popover
             imagePickerController.allowsEditing = false
             imagePickerController.sourceType = .PhotoLibrary
-            imagePickerController.mediaTypes = [kUTTypeImage as String]
+            imagePickerController.mediaTypes = self.mediaTypesForImagePicker
             
             imagePickerController.popoverPresentationController?.barButtonItem = self.capturedPopoverPresentationControllerBarButtonItem
             imagePickerController.popoverPresentationController?.sourceView = self.capturedPopoverPresentationControllerSourceView
@@ -49,14 +55,18 @@ public class PhotosMenuController: UIAlertController {
             self.capturedPresentingViewController?.presentViewController(imagePickerController, animated: true, completion: nil)
         })
         
-        self.cameraAction = UIAlertAction(title: "Take Photo or Video", style: .Default, handler: { (action) -> Void in
+        self.cameraAction = UIAlertAction(title: NSLocalizedString("Take Photo or Video", bundle: NSBundle.nemoBundle(), comment: ""), style: .Default, handler: { (action) -> Void in
             let imagePickerController = UIImagePickerController()
             imagePickerController.delegate = self.delegate
+            imagePickerController.modalPresentationStyle = .FullScreen
+            imagePickerController.sourceType = .Camera
+            imagePickerController.mediaTypes = self.mediaTypesForImagePicker
             
             self.capturedPresentingViewController?.presentViewController(imagePickerController, animated: true, completion: nil)
         })
+        self.updateCameraActionTitle()
         
-        self.cancelAction = UIAlertAction(title: "Cancel", style: .Cancel,  handler: { (action) -> Void in
+        self.cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", bundle: NSBundle.nemoBundle(), comment: ""), style: .Cancel,  handler: { (action) -> Void in
             self.delegate?.photosMenuControllerDidCancel?(self)
         })
     }
@@ -89,6 +99,28 @@ public class PhotosMenuController: UIAlertController {
     
     public override func addAction(action: UIAlertAction) {
         customActions += [action]
+    }
+    
+    private func updateCameraActionTitle() {
+        let cameraActionTitle: String
+        
+        let mediaTypesContainImage = (find(self.mediaTypesForImagePicker, kUTTypeImage as String) != nil)
+        let mediaTypesContainMovie = (find(self.mediaTypesForImagePicker, kUTTypeMovie as String) != nil)
+        
+        if mediaTypesContainImage && mediaTypesContainMovie {
+            cameraActionTitle = NSLocalizedString("Take Photo or Video", bundle: NSBundle.nemoBundle(), comment: "")
+        }
+        else if mediaTypesContainImage {
+            cameraActionTitle = NSLocalizedString("Take Photo", bundle: NSBundle.nemoBundle(), comment: "")
+        }
+        else if mediaTypesContainMovie {
+            cameraActionTitle = NSLocalizedString("Take Video", bundle: NSBundle.nemoBundle(), comment: "")
+        }
+        else {
+            cameraActionTitle = NSLocalizedString("Take Photo or Video", bundle: NSBundle.nemoBundle(), comment: "")
+        }
+        
+        self.cameraAction.setValue(cameraActionTitle, forKey: "title")
     }
 
     /*
