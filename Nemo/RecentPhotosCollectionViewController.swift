@@ -9,7 +9,7 @@
 import UIKit
 import Photos
 
-let reusePhotoIdentifier = "PhotoCell"
+private let reusePhotoIdentifier = "PhotoCell"
 
 class RecentPhotosCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UINavigationControllerDelegate, PHPhotoLibraryChangeObserver, UIImagePickerControllerDelegate {
 

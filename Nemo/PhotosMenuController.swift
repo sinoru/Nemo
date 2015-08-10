@@ -37,14 +37,13 @@ public class PhotosMenuController: UIAlertController {
 
         // Do any additional setup after loading the view.
         self.recentPhotosCollectionViewController = RecentPhotosCollectionViewController()
-        self.recentPhotosCollectionViewController.preferredContentSize = CGSize(width: 0.0, height: 180.0)
+        self.recentPhotosCollectionViewController.preferredContentSize = CGSize(width: 0.0, height: 160.0)
         self.recentPhotosCollectionViewController.delegate = self
         
         self.photoLibraryAction = UIAlertAction(title: NSLocalizedString("Photo Library", bundle: NSBundle.nemoBundle(), comment: ""), style: .Default, handler: { (action) -> Void in
             let imagePickerController = UIImagePickerController()
             imagePickerController.delegate = self.delegate
             imagePickerController.modalPresentationStyle = .Popover
-            imagePickerController.allowsEditing = false
             imagePickerController.sourceType = .PhotoLibrary
             imagePickerController.mediaTypes = self.mediaTypesForImagePicker
             
@@ -79,8 +78,12 @@ public class PhotosMenuController: UIAlertController {
         self.setValue(self.recentPhotosCollectionViewController, forKey: "contentViewController")
         super.addAction(self.recentPhotosCollectionViewController.addPhotoAction)
         
-        super.addAction(self.photoLibraryAction)
-        super.addAction(self.cameraAction)
+        if UIImagePickerController.isSourceTypeAvailable(.PhotoLibrary) {
+            super.addAction(self.photoLibraryAction)
+        }
+        if UIImagePickerController.isSourceTypeAvailable(.Camera) {
+            super.addAction(self.cameraAction)
+        }
         
         for action in customActions {
             super.addAction(action)
