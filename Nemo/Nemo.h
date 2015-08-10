@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Photos/Photos.h>
 
 //! Project version number for Nemo.
 FOUNDATION_EXPORT double NemoVersionNumber;
