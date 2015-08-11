@@ -137,10 +137,12 @@ class RecentPhotosCollectionViewController: UICollectionViewController, UICollec
             return
         }
         
-        if let collectionView = self.collectionView where self.assetsFetchResults?.count > 0 {
+        if self.collectionView != nil && self.assetsFetchResults?.count > 0 {
             let imageRequestOptions = PHImageRequestOptions()
             
-            self.imageManager.startCachingImagesForAssets(self.assetsFetchResults.objectsAtIndexes(NSIndexSet(indexesInRange: NSRange(location: 0, length: min(self.assetsFetchResults.count, self.maxFetchResultsCount)))), targetSize: self.cachingImageThumbnailSize, contentMode: .AspectFit, options: imageRequestOptions)
+            if let assets = self.assetsFetchResults.objectsAtIndexes(NSIndexSet(indexesInRange: NSRange(location: 0, length: min(self.assetsFetchResults.count, self.maxFetchResultsCount)))) as? Array<PHAsset> {
+                self.imageManager.startCachingImagesForAssets(assets, targetSize: self.cachingImageThumbnailSize, contentMode: .AspectFit, options: imageRequestOptions)
+            }
         }
     }
 
