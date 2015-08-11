@@ -87,13 +87,13 @@
 		1977112B1B76289B00678CC7 /* NemoExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NemoExampleTests.swift; sourceTree = "<group>"; };
 		1984BA911B77B9E9009731F8 /* RecentPhotosCollectionViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentPhotosCollectionViewControllerDelegate.swift; sourceTree = "<group>"; };
 		1984BA981B7886F2009731F8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Nemo.strings; sourceTree = "<group>"; };
-		1984BA9B1B7886F6009731F8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = en; path = en.lproj/Nemo.stringsdict; sourceTree = "<group>"; };
+		1984BA9B1B7886F6009731F8 /* en */ = {isa = PBXFileReference; explicitFileType = text.plist.xml; name = en; path = en.lproj/Nemo.stringsdict; sourceTree = "<group>"; };
 		19B0248C1B76290D007B552C /* PhotosMenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosMenuController.swift; sourceTree = "<group>"; };
 		19B142FE1B78871F0047C106 /* NSBundle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSBundle.swift; sourceTree = "<group>"; };
 		19B143001B7888720047C106 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Nemo.strings; sourceTree = "<group>"; };
-		19B143011B7888720047C106 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = ko; path = ko.lproj/Nemo.stringsdict; sourceTree = "<group>"; };
+		19B143011B7888720047C106 /* ko */ = {isa = PBXFileReference; explicitFileType = text.plist.xml; name = ko; path = ko.lproj/Nemo.stringsdict; sourceTree = "<group>"; };
 		19B143021B78887C0047C106 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Nemo.strings; sourceTree = "<group>"; };
-		19B143031B78887C0047C106 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = ja; path = ja.lproj/Nemo.stringsdict; sourceTree = "<group>"; };
+		19B143031B78887C0047C106 /* ja */ = {isa = PBXFileReference; explicitFileType = text.plist.xml; name = ja; path = ja.lproj/Nemo.stringsdict; sourceTree = "<group>"; };
 		19B143041B7896EC0047C106 /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		19FC2E241B762B8C00873FF7 /* RecentPhotosCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentPhotosCollectionViewController.swift; sourceTree = "<group>"; };
 		19FC2E291B766C6C00873FF7 /* RecentPhotosPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecentPhotosPhotoCollectionViewCell.swift; sourceTree = "<group>"; };

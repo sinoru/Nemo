@@ -5,7 +5,7 @@
 	<key>Add %d Photos</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>Add %#@photos@</string>
+		<string>%#@photos@ 추가</string>
 		<key>photos</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -13,11 +13,9 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>zero</key>
-			<string>Photos</string>
-			<key>one</key>
-			<string>%d Photo</string>
+			<string>사진</string>
 			<key>other</key>
-			<string>%d Photos</string>
+			<string>%d장의 사진</string>
 		</dict>
 	</dict>
 </dict>
