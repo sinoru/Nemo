@@ -8,3 +8,4 @@ env:
   - XCODE_SDK=iphonesimulator
 script:
 - xctool -project $XCODE_PROJECT -scheme $XCODE_SCHEME -configuration $XCODE_CONFIGURATION -sdk $XCODE_SDK analyze
+- pod spec lint Nemo.podspec
