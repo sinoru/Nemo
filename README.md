@@ -1,8 +1,10 @@
 # Nemo [![License](https://img.shields.io/badge/license-BSD-blue.svg)](https://raw.githubusercontent.com/sinoru/Nemo/master/LICENSE) [![Build Status](https://travis-ci.org/sinoru/Nemo.svg?branch=master)](https://travis-ci.org/sinoru/Nemo)
 Nemo is a photos menu framework for iOS
 
-<img src="ScreenShot~iPhone.png" alt="ScreenShot~iPhone.png" height="500px"/>
-<img src="ScreenShot~iPad.png" alt="ScreenShot~iPad.png" height="500px/>
+<div style="max-width:100%;">
+<img src="ScreenShot~iPhone.png" alt="ScreenShot~iPhone.png"/>
+<img src="ScreenShot~iPad.png" alt="ScreenShot~iPad.png"/>
+</div>
 
 ## Installation
 ### [CocoaPods](https://cocoapods.org)
