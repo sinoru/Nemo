@@ -1,6 +1,8 @@
 # Nemo [![License](https://img.shields.io/badge/license-BSD-blue.svg)](https://raw.githubusercontent.com/sinoru/Nemo/master/LICENSE) [![Build Status](https://travis-ci.org/sinoru/Nemo.svg?branch=master)](https://travis-ci.org/sinoru/Nemo)
 Nemo is a photos menu framework for iOS
 
+![ScreenShot~iPhone.png](ScreenShot~iPhone.png)![ScreenShot~iPad.png](ScreenShot~iPad.png)
+
 ## Installation
 ### [CocoaPods](https://cocoapods.org)
 You can install Nemo with Cocoapods, simply add this line to your Podfile:
