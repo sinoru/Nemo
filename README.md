@@ -30,7 +30,7 @@ let controller = PhotosMenuController()
 ```swift
 self.presentViewController(controller, animated: true, completion: nil)
 ```
-### Obj-C
+### Objective-C
 * Import Nemo framework by:
 
 ```objective-c
