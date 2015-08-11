@@ -37,7 +37,7 @@ public class PhotosMenuController: UIAlertController {
 
         // Do any additional setup after loading the view.
         self.recentPhotosCollectionViewController = RecentPhotosCollectionViewController()
-        self.recentPhotosCollectionViewController.preferredContentSize = CGSize(width: 0.0, height: 160.0)
+        self.recentPhotosCollectionViewController.preferredContentSize = CGSize(width: 0.0, height: 172.0)
         self.recentPhotosCollectionViewController.delegate = self
         
         self.photoLibraryAction = UIAlertAction(title: NSLocalizedString("Photo Library", tableName: "Nemo", bundle: NSBundle.nemoBundle(), comment: ""), style: .Default, handler: { (action) -> Void in
