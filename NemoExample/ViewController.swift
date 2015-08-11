@@ -120,7 +120,7 @@ class ViewController: UICollectionViewController, PhotosMenuControllerDelegate, 
     }
     
     // MARK: UIImagePickerControllerDelegate
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject]) {
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             self.images.append(image)
             self.collectionView!.reloadData()

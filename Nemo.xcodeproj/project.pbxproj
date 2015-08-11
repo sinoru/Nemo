@@ -329,6 +329,8 @@
 		194D74301B7627CD009A9284 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = Sinoru;
 				TargetAttributes = {

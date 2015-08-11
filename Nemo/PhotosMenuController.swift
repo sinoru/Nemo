@@ -111,8 +111,8 @@ public class PhotosMenuController: UIAlertController {
     private func updateCameraActionTitle() {
         let cameraActionTitle: String
         
-        let mediaTypesContainImage = (find(self.mediaTypesForImagePicker, kUTTypeImage as String) != nil)
-        let mediaTypesContainMovie = (find(self.mediaTypesForImagePicker, kUTTypeMovie as String) != nil)
+        let mediaTypesContainImage = (self.mediaTypesForImagePicker.indexOf((kUTTypeImage as String)) != nil)
+        let mediaTypesContainMovie = (self.mediaTypesForImagePicker.indexOf((kUTTypeMovie as String)) != nil)
         
         if mediaTypesContainImage && mediaTypesContainMovie {
             cameraActionTitle = NSLocalizedString("Take Photo or Video", tableName: "Nemo", bundle: NSBundle.nemoBundle(), comment: "")
