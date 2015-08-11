@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="15A235d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="FJi-vJ-LVc">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="p2T-SD-QXs">
+            <objects>
+                <navigationController id="FJi-vJ-LVc" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="87G-1c-AqW">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="DUB-wB-L1p" kind="relationship" relationship="rootViewController" id="abF-WS-J0O"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4rX-97-uCY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="129" y="402"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="OXB-P8-2Zw">
+            <objects>
+                <collectionViewController id="DUB-wB-L1p" customClass="ViewController" customModule="NemoExample" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="HN4-de-Bmk">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="4" minimumInteritemSpacing="4" id="sMS-UP-uoy">
+                            <size key="itemSize" width="100" height="100"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="4" minY="4" maxX="4" maxY="4"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="eKz-Fj-fwb" customClass="CollectionViewCell" customModule="NemoExample" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="M4K-N3-dwb">
+                                            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                            <animations/>
+                                        </imageView>
+                                    </subviews>
+                                    <animations/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="M4K-N3-dwb" secondAttribute="bottom" id="4g4-4v-QJh"/>
+                                    <constraint firstItem="M4K-N3-dwb" firstAttribute="leading" secondItem="eKz-Fj-fwb" secondAttribute="leading" id="9ac-e1-9xd"/>
+                                    <constraint firstAttribute="trailing" secondItem="M4K-N3-dwb" secondAttribute="trailing" id="dYT-D8-u1Q"/>
+                                    <constraint firstItem="M4K-N3-dwb" firstAttribute="top" secondItem="eKz-Fj-fwb" secondAttribute="top" id="yfO-ec-xKR"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="imageView" destination="M4K-N3-dwb" id="Ubn-Ne-wJX"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="DUB-wB-L1p" id="WjD-B4-MUq"/>
+                            <outlet property="delegate" destination="DUB-wB-L1p" id="f2N-B2-eTN"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" id="e2g-RA-wb2">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="cYS-Pn-FnJ">
+                            <connections>
+                                <action selector="addPhotos:" destination="DUB-wB-L1p" id="QrM-Wm-vVs"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dcT-CS-jmS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1026" y="402"/>
+        </scene>
+    </scenes>
+</document>
