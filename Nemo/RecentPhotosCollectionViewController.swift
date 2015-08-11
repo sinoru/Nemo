@@ -259,16 +259,20 @@ class RecentPhotosCollectionViewController: UICollectionViewController, UICollec
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         switch (indexPath.section, indexPath.item) {
         default:
-            self.addPhotoAction.enabled = (collectionView.indexPathsForSelectedItems().count != 0)
-            self.addPhotoAction.setValue(NSString.localizedStringWithFormat(NSLocalizedString("Add %d Photos", tableName: "Nemo", bundle: NSBundle.nemoBundle(), comment: ""), collectionView.indexPathsForSelectedItems().count), forKey: "title")
+            let selectedItemsCount = collectionView.indexPathsForSelectedItems().count
+            
+            self.addPhotoAction.enabled = (selectedItemsCount != 0)
+            self.addPhotoAction.setValue(NSString.localizedStringWithFormat(NSLocalizedString("Add %d Photos", tableName: "Nemo", bundle: NSBundle.nemoBundle(), comment: ""), selectedItemsCount), forKey: "title")
         }
     }
     
     override func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
         switch (indexPath.section, indexPath.item) {
         default:
-            self.addPhotoAction.enabled = (collectionView.indexPathsForSelectedItems().count != 0)
-            self.addPhotoAction.setValue(NSString.localizedStringWithFormat(NSLocalizedString("Add %d Photos", tableName: "Nemo", bundle: NSBundle.nemoBundle(), comment: ""), collectionView.indexPathsForSelectedItems().count), forKey: "title")
+            let selectedItemsCount = collectionView.indexPathsForSelectedItems().count
+            
+            self.addPhotoAction.enabled = (selectedItemsCount != 0)
+            self.addPhotoAction.setValue(NSString.localizedStringWithFormat(NSLocalizedString("Add %d Photos", tableName: "Nemo", bundle: NSBundle.nemoBundle(), comment: ""), selectedItemsCount), forKey: "title")
         }
     }
     
