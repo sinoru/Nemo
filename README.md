@@ -51,5 +51,5 @@ PhotosMenuController *controller = [[PhotosMenuController alloc] init];
 
 Or you can simply check NemoExample on `Nemo.xcodeproj`
 
-## LICENSE
+## License
 Nemo is distributed under the BSD 3-clause "New" or "Revised" License (see LICENSE).
