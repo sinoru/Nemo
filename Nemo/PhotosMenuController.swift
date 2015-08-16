@@ -9,11 +9,14 @@
 import UIKit
 import MobileCoreServices
 
+/// PhotosMenuController is a menu for photo picking. Like as Message.app's one. It includes recently photo section to easily select multiple photos.
 @objc(NMPhotosMenuController)
 public class PhotosMenuController: UIAlertController {
 
+    /// The photo menu’s delegate object.
     public var delegate: protocol<PhotosMenuControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>?
     
+    /// An array indicating the media types to be accessed by the media picker controller.
     public var mediaTypesForImagePicker: [String] = [kUTTypeImage as String] {
         didSet {
             self.updateCameraActionTitle()
