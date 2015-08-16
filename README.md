@@ -1,5 +1,5 @@
 # Nemo
-[![License](https://img.shields.io/badge/license-BSD-blue.svg)](https://raw.githubusercontent.com/sinoru/Nemo/master/LICENSE) [![Build Status](https://travis-ci.org/sinoru/Nemo.svg?branch=master)](https://travis-ci.org/sinoru/Nemo)
+[![License](https://img.shields.io/badge/license-BSD-blue.svg)](https://raw.githubusercontent.com/sinoru/Nemo/master/LICENSE) [![Build Status](https://travis-ci.org/sinoru/Nemo.svg?branch=master)](https://travis-ci.org/sinoru/Nemo) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 Nemo is a photos menu framework for iOS
 
@@ -14,7 +14,7 @@ You can install Nemo with Cocoapods, simply add this line to your Podfile:
 pod 'Nemo'
 ```
 
-### Carthage [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+### [Carthage](https://github.com/Carthage/Carthage)
 You can install Nemo with Carthage, simply add this line to your Cartfile:
 
 ```
