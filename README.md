@@ -1,4 +1,6 @@
-# Nemo [![License](https://img.shields.io/badge/license-BSD-blue.svg)](https://raw.githubusercontent.com/sinoru/Nemo/master/LICENSE) [![Build Status](https://travis-ci.org/sinoru/Nemo.svg?branch=master)](https://travis-ci.org/sinoru/Nemo)
+# Nemo
+[![License](https://img.shields.io/badge/license-BSD-blue.svg)](https://raw.githubusercontent.com/sinoru/Nemo/master/LICENSE) [![Build Status](https://travis-ci.org/sinoru/Nemo.svg?branch=master)](https://travis-ci.org/sinoru/Nemo)
+
 Nemo is a photos menu framework for iOS
 
 <img src="ScreenShot~iPhone.png" alt="ScreenShot~iPhone.png" width="29%"/>
