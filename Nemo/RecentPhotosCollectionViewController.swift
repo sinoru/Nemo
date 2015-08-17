@@ -17,10 +17,10 @@ class RecentPhotosCollectionViewController: UICollectionViewController, UICollec
     var delegate: RecentPhotosCollectionViewControllerDelegate?
     
     private var selectedAssets: [PHAsset] {
-        return self.collectionView?.indexPathsForSelectedItems()?.map({ self.assetsFetchResults[$0.item] as! PHAsset }) ?? []
+        return self.collectionView?.indexPathsForSelectedItems()?.map({ self.assetsFetchResults![$0.item] as! PHAsset }) ?? []
     }
     
-    private var assetsFetchResults: PHFetchResult!
+    private var assetsFetchResults: PHFetchResult?
     private let maxFetchResultsCount = 70
     private let imageManager = PHCachingImageManager()
     private var cachingImageThumbnailSize = CGSizeZero
@@ -43,7 +43,7 @@ class RecentPhotosCollectionViewController: UICollectionViewController, UICollec
         self.addPhotoAction.enabled = false
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -69,22 +69,7 @@ class RecentPhotosCollectionViewController: UICollectionViewController, UICollec
         self.collectionView!.showsHorizontalScrollIndicator = false
         self.collectionView!.showsVerticalScrollIndicator = false
         
-        PHPhotoLibrary.sharedPhotoLibrary().registerChangeObserver(self)
-        
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), { () -> Void in
-            if let fetchedAssetCollection = PHAssetCollection.fetchAssetCollectionsWithType(.SmartAlbum, subtype: .SmartAlbumRecentlyAdded, options: nil).lastObject as? PHAssetCollection {
-                let fetchOptions = PHFetchOptions()
-                fetchOptions.predicate = NSPredicate(format: "SELF.mediaType = %d", PHAssetMediaType.Image.rawValue)
-                fetchOptions.sortDescriptors = [ NSSortDescriptor(key: "creationDate", ascending: false) ]
-                self.assetsFetchResults = PHAsset.fetchAssetsInAssetCollection(fetchedAssetCollection, options: fetchOptions)
-            }
-            
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                if self.assetsFetchResults != nil {
-                    self.collectionView!.reloadSections(NSIndexSet(index: self.recentPhotosSection))
-                }
-            })
-        })
+        self.loadFetchResults()
         
         let cellMaxWidth = self.preferredContentSize.width - collectionViewFlowLayout.sectionInset.left - collectionViewFlowLayout.sectionInset.right
         let cellHeight = self.preferredContentSize.height - collectionViewFlowLayout.sectionInset.top - collectionViewFlowLayout.sectionInset.bottom
@@ -125,6 +110,31 @@ class RecentPhotosCollectionViewController: UICollectionViewController, UICollec
     }
     */
     
+    func loadFetchResults() {
+        PHPhotoLibrary.requestAuthorization({ (status) -> Void in
+            switch status {
+            case .Authorized:
+                PHPhotoLibrary.sharedPhotoLibrary().registerChangeObserver(self)
+                
+                if let fetchedAssetCollection = PHAssetCollection.fetchAssetCollectionsWithType(.SmartAlbum, subtype: .SmartAlbumRecentlyAdded, options: nil).lastObject as? PHAssetCollection {
+                    let fetchOptions = PHFetchOptions()
+                    fetchOptions.predicate = NSPredicate(format: "SELF.mediaType = %d", PHAssetMediaType.Image.rawValue)
+                    fetchOptions.sortDescriptors = [ NSSortDescriptor(key: "creationDate", ascending: false) ]
+                    self.assetsFetchResults = PHAsset.fetchAssetsInAssetCollection(fetchedAssetCollection, options: fetchOptions)
+                }
+                
+                self.updateCachedAssets()
+                
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.collectionView!.reloadSections(NSIndexSet(index: self.recentPhotosSection))
+                })
+                break
+            default:
+                break
+            }
+        })
+    }
+    
     // MARK: Asset Caching
     
     func resetCachedAssets() {
@@ -140,7 +150,7 @@ class RecentPhotosCollectionViewController: UICollectionViewController, UICollec
         if self.collectionView != nil && self.assetsFetchResults?.count > 0 {
             let imageRequestOptions = PHImageRequestOptions()
             
-            if let assets = self.assetsFetchResults.objectsAtIndexes(NSIndexSet(indexesInRange: NSRange(location: 0, length: min(self.assetsFetchResults.count, self.maxFetchResultsCount)))) as? Array<PHAsset> {
+            if let assets = self.assetsFetchResults?.objectsAtIndexes(NSIndexSet(indexesInRange: NSRange(location: 0, length: min(self.assetsFetchResults?.count ?? 0, self.maxFetchResultsCount)))) as? Array<PHAsset> {
                 self.imageManager.startCachingImagesForAssets(assets, targetSize: self.cachingImageThumbnailSize, contentMode: .AspectFit, options: imageRequestOptions)
             }
         }
@@ -177,7 +187,7 @@ class RecentPhotosCollectionViewController: UICollectionViewController, UICollec
             let currentTag = cell.tag + 1
             cell.tag = currentTag
             
-            let asset = self.assetsFetchResults[indexPath.item] as! PHAsset
+            let asset = self.assetsFetchResults![indexPath.item] as! PHAsset
             
             let imageRequestOptions = PHImageRequestOptions()
             imageRequestOptions.networkAccessAllowed = true
@@ -198,7 +208,7 @@ class RecentPhotosCollectionViewController: UICollectionViewController, UICollec
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         switch indexPath.section {
         case self.recentPhotosSection:
-            let asset = self.assetsFetchResults[indexPath.item] as! PHAsset
+            let asset = self.assetsFetchResults![indexPath.item] as! PHAsset
             
             let itemCellHeight = (collectionViewLayout as! UICollectionViewFlowLayout).itemSize.height
             
@@ -286,7 +296,7 @@ class RecentPhotosCollectionViewController: UICollectionViewController, UICollec
     // MARK: PHPhotoLibraryChangeObserver
     func photoLibraryDidChange(changeInstance: PHChange) {
         dispatch_async(dispatch_get_main_queue(), {
-            if let collectionChanges = changeInstance.changeDetailsForFetchResult(self.assetsFetchResults) {
+            if let collectionChanges = changeInstance.changeDetailsForFetchResult(self.assetsFetchResults!) {
                 self.assetsFetchResults = collectionChanges.fetchResultAfterChanges
                 
                 if let collectionView = self.collectionView where self.recentPhotosSection > 0 {
@@ -302,7 +312,7 @@ class RecentPhotosCollectionViewController: UICollectionViewController, UICollec
                             }) ?? NSIndexSet()
                             if removedIndexes.count > 0 {
                                 collectionView.deleteItemsAtIndexPaths(removedIndexes.map({ NSIndexPath(forItem: $0, inSection: self.recentPhotosSection) }))
-                                collectionView.insertItemsAtIndexPaths(NSIndexSet(indexesInRange: NSRange(location: self.maxFetchResultsCount - removedIndexes.count, length: removedIndexes.count - max(self.maxFetchResultsCount - self.assetsFetchResults.count, 0))).map({ NSIndexPath(forItem: $0, inSection: self.recentPhotosSection) }))
+                                collectionView.insertItemsAtIndexPaths(NSIndexSet(indexesInRange: NSRange(location: self.maxFetchResultsCount - removedIndexes.count, length: removedIndexes.count - max(self.maxFetchResultsCount - self.assetsFetchResults!.count, 0))).map({ NSIndexPath(forItem: $0, inSection: self.recentPhotosSection) }))
                             }
                             
                             let insertedindexes = collectionChanges.insertedIndexes?.indexesWithOptions(.Concurrent, passingTest: { (index, stop) -> Bool in

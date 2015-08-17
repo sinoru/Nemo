@@ -9,11 +9,14 @@
 import UIKit
 import MobileCoreServices
 
+/// PhotosMenuController is a menu for photo picking. Like as Message.app's one. It includes recently photo section to easily select multiple photos.
 @objc(NMPhotosMenuController)
 public class PhotosMenuController: UIAlertController {
 
+    /// The photo menu’s delegate object.
     public var delegate: protocol<PhotosMenuControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>?
     
+    /// An array indicating the media types to be accessed by the media picker controller.
     public var mediaTypesForImagePicker: [String] = [kUTTypeImage as String] {
         didSet {
             self.updateCameraActionTitle()
@@ -32,6 +35,7 @@ public class PhotosMenuController: UIAlertController {
     private var capturedPopoverPresentationControllerSourceView: UIView?
     private var capturedPopoverPresentationControllerSourceRect: CGRect?
     
+    /// Called after the view has been loaded. For view controllers created in code, this is after -loadView. For view controllers unarchived from a nib, this is after the view is set.
     public override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -74,6 +78,7 @@ public class PhotosMenuController: UIAlertController {
         })
     }
     
+    /// Called when the view is about to made visible.
     public override func viewWillAppear(animated: Bool) {
         self.setValue(self.recentPhotosCollectionViewController, forKey: "contentViewController")
         super.addAction(self.recentPhotosCollectionViewController.addPhotoAction)
@@ -98,12 +103,12 @@ public class PhotosMenuController: UIAlertController {
         self.capturedPopoverPresentationControllerSourceRect = self.popoverPresentationController?.sourceRect
         self.capturedPopoverPresentationControllerSourceView = self.popoverPresentationController?.sourceView
     }
-
-    public override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
+    /**
+    Attaches an action object to the alert or action sheet.
+    
+    :param: action The action object to display as part of the alert.
+    */
     public override func addAction(action: UIAlertAction) {
         customActions += [action]
     }
