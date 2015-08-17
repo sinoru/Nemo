@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "194D74381B7627CD009A9284"
-               BuildableName = "Nemo.framework"
-               BlueprintName = "Nemo"
+               BlueprintIdentifier = "197711101B76289B00678CC7"
+               BuildableName = "NemoExample.app"
+               BlueprintName = "NemoExample"
                ReferencedContainer = "container:Nemo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,9 +28,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "194D74431B7627CD009A9284"
-               BuildableName = "NemoTests.xctest"
-               BlueprintName = "NemoTests"
+               BlueprintIdentifier = "197711241B76289B00678CC7"
+               BuildableName = "NemoExampleTests.xctest"
+               BlueprintName = "NemoExampleTests"
                ReferencedContainer = "container:Nemo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -46,9 +46,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "194D74431B7627CD009A9284"
-               BuildableName = "NemoTests.xctest"
-               BlueprintName = "NemoTests"
+               BlueprintIdentifier = "197711241B76289B00678CC7"
+               BuildableName = "NemoExampleTests.xctest"
+               BlueprintName = "NemoExampleTests"
                ReferencedContainer = "container:Nemo.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -56,9 +56,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "194D74381B7627CD009A9284"
-            BuildableName = "Nemo.framework"
-            BlueprintName = "Nemo"
+            BlueprintIdentifier = "197711101B76289B00678CC7"
+            BuildableName = "NemoExample.app"
+            BlueprintName = "NemoExample"
             ReferencedContainer = "container:Nemo.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -74,16 +74,18 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
-      allowLocationSimulation = "YES">
-      <MacroExpansion>
+      allowLocationSimulation = "YES"
+      language = "en">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "194D74381B7627CD009A9284"
-            BuildableName = "Nemo.framework"
-            BlueprintName = "Nemo"
+            BlueprintIdentifier = "197711101B76289B00678CC7"
+            BuildableName = "NemoExample.app"
+            BlueprintName = "NemoExample"
             ReferencedContainer = "container:Nemo.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -93,15 +95,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "194D74381B7627CD009A9284"
-            BuildableName = "Nemo.framework"
-            BlueprintName = "Nemo"
+            BlueprintIdentifier = "197711101B76289B00678CC7"
+            BuildableName = "NemoExample.app"
+            BlueprintName = "NemoExample"
             ReferencedContainer = "container:Nemo.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

@@ -35,6 +35,7 @@ public class PhotosMenuController: UIAlertController {
     private var capturedPopoverPresentationControllerSourceView: UIView?
     private var capturedPopoverPresentationControllerSourceRect: CGRect?
     
+    /// Called after the view has been loaded. For view controllers created in code, this is after -loadView. For view controllers unarchived from a nib, this is after the view is set.
     public override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -77,6 +78,7 @@ public class PhotosMenuController: UIAlertController {
         })
     }
     
+    /// Called when the view is about to made visible.
     public override func viewWillAppear(animated: Bool) {
         self.setValue(self.recentPhotosCollectionViewController, forKey: "contentViewController")
         super.addAction(self.recentPhotosCollectionViewController.addPhotoAction)
@@ -101,12 +103,12 @@ public class PhotosMenuController: UIAlertController {
         self.capturedPopoverPresentationControllerSourceRect = self.popoverPresentationController?.sourceRect
         self.capturedPopoverPresentationControllerSourceView = self.popoverPresentationController?.sourceView
     }
-
-    public override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
+    /**
+    Attaches an action object to the alert or action sheet.
+    
+    :param: action The action object to display as part of the alert.
+    */
     public override func addAction(action: UIAlertAction) {
         customActions += [action]
     }
@@ -114,8 +116,8 @@ public class PhotosMenuController: UIAlertController {
     private func updateCameraActionTitle() {
         let cameraActionTitle: String
         
-        let mediaTypesContainImage = (find(self.mediaTypesForImagePicker, kUTTypeImage as String) != nil)
-        let mediaTypesContainMovie = (find(self.mediaTypesForImagePicker, kUTTypeMovie as String) != nil)
+        let mediaTypesContainImage = (self.mediaTypesForImagePicker.indexOf((kUTTypeImage as String)) != nil)
+        let mediaTypesContainMovie = (self.mediaTypesForImagePicker.indexOf((kUTTypeMovie as String)) != nil)
         
         if mediaTypesContainImage && mediaTypesContainMovie {
             cameraActionTitle = NSLocalizedString("Take Photo or Video", tableName: "Nemo", bundle: NSBundle.nemoBundle(), comment: "")
