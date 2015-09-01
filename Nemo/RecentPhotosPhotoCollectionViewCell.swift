@@ -51,14 +51,14 @@ class CheckIndicatorView: UIView {
         
         CGContextSetLineWidth(context, 1.0)
         CGContextSetStrokeColorWithColor(context, UIColor.whiteColor().CGColor)
-        CGContextAddEllipseInRect(context, self.bounds.rectByInsetting(dx: 4.0, dy: 4.0))
+        CGContextAddEllipseInRect(context, self.bounds.insetBy(dx: 4.0, dy: 4.0))
         CGContextStrokePath(context)
         
         CGContextRestoreGState(context)
         if (selected) {
             CGContextSaveGState(context)
             CGContextSetFillColorWithColor(context, self.tintColor.CGColor)
-            CGContextFillEllipseInRect(context, self.bounds.rectByInsetting(dx: 4.32, dy: 4.32))
+            CGContextFillEllipseInRect(context, self.bounds.insetBy(dx: 4.32, dy: 4.32))
             CGContextRestoreGState(context)
             checkMark.hidden = false
         }
