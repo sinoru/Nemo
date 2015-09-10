@@ -296,7 +296,9 @@ class RecentPhotosCollectionViewController: UICollectionViewController, UICollec
     // MARK: PHPhotoLibraryChangeObserver
     func photoLibraryDidChange(changeInstance: PHChange) {
         dispatch_async(dispatch_get_main_queue(), {
-            if let collectionChanges = changeInstance.changeDetailsForFetchResult(self.assetsFetchResults!) {
+            guard let assetsFetchResults = self.assetsFetchResults else { return }
+            
+            if let collectionChanges = changeInstance.changeDetailsForFetchResult(assetsFetchResults) {
                 self.assetsFetchResults = collectionChanges.fetchResultAfterChanges
                 
                 if let collectionView = self.collectionView where self.recentPhotosSection > 0 {
@@ -340,8 +342,6 @@ class RecentPhotosCollectionViewController: UICollectionViewController, UICollec
                                 self.resetCachedAssets()
                         })
                     }
-                    
-                    
                 }
             }
         })
