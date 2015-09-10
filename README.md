@@ -3,7 +3,7 @@
 
 Nemo is a photos menu framework for iOS
 
-<video src="ExampleVideo~iPhone.mov" width="50%"/>
+<img src="Example~iPhone.gif" alt="Example" width="39%"/>
 
 ## Installation
 ### [CocoaPods](https://cocoapods.org)
