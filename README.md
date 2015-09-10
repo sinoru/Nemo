@@ -53,7 +53,7 @@ self.presentViewController(controller, animated: true, completion: nil)
 * Init PhotosMenuController by:
 
 ```objective-c
-PhotosMenuController *controller = [[PhotosMenuController alloc] init];
+NMPhotosMenuController *controller = [[NMPhotosMenuController alloc] init];
 ```
 * Present it by UIViewController's present view controller method:
 
