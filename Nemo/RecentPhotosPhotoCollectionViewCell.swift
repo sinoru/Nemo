@@ -26,7 +26,7 @@ class CheckIndicatorView: UIView {
         
         self.backgroundColor = UIColor.clearColor()
         
-        self.checkMark.setTranslatesAutoresizingMaskIntoConstraints(false)
+        self.checkMark.translatesAutoresizingMaskIntoConstraints = false
         self.checkMark.text = "✓"
         self.checkMark.font = UIFont.systemFontOfSize(20)
         self.checkMark.textColor = UIColor.whiteColor()
@@ -38,7 +38,7 @@ class CheckIndicatorView: UIView {
         self.addConstraint(NSLayoutConstraint(item: self, attribute: .CenterY, relatedBy: .Equal, toItem: self.checkMark, attribute: .CenterY, multiplier: 1.0, constant: -1.0))
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -51,14 +51,14 @@ class CheckIndicatorView: UIView {
         
         CGContextSetLineWidth(context, 1.0)
         CGContextSetStrokeColorWithColor(context, UIColor.whiteColor().CGColor)
-        CGContextAddEllipseInRect(context, self.bounds.rectByInsetting(dx: 4.0, dy: 4.0))
+        CGContextAddEllipseInRect(context, self.bounds.insetBy(dx: 4.0, dy: 4.0))
         CGContextStrokePath(context)
         
         CGContextRestoreGState(context)
         if (selected) {
             CGContextSaveGState(context)
             CGContextSetFillColorWithColor(context, self.tintColor.CGColor)
-            CGContextFillEllipseInRect(context, self.bounds.rectByInsetting(dx: 4.32, dy: 4.32))
+            CGContextFillEllipseInRect(context, self.bounds.insetBy(dx: 4.32, dy: 4.32))
             CGContextRestoreGState(context)
             checkMark.hidden = false
         }
@@ -89,15 +89,15 @@ class RecentPhotosPhotoCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         self.imageView.contentMode = .ScaleAspectFill
-        self.imageView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        self.imageView.translatesAutoresizingMaskIntoConstraints = false
         
-        self.checkIndicatorView.setTranslatesAutoresizingMaskIntoConstraints(false)
+        self.checkIndicatorView.translatesAutoresizingMaskIntoConstraints = false
         
         self.contentView.addSubview(imageView)
         self.contentView.addSubview(checkIndicatorView)
         
-        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[imageView]-0-|", options: nil, metrics: nil, views: ["imageView": imageView]))
-        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-0-[imageView]-0-|", options: nil, metrics: nil, views: ["imageView": imageView]))
+        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|-0-[imageView]-0-|", options: [], metrics: nil, views: ["imageView": imageView]))
+        self.contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-0-[imageView]-0-|", options: [], metrics: nil, views: ["imageView": imageView]))
         
         self.contentView.addConstraint(NSLayoutConstraint(item: checkIndicatorView, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 30.0))
         self.contentView.addConstraint(NSLayoutConstraint(item: checkIndicatorView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 30.0))
@@ -111,7 +111,7 @@ class RecentPhotosPhotoCollectionViewCell: UICollectionViewCell {
         self.contentView.addConstraint(trailingEqualConstraint)
     }
     
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     

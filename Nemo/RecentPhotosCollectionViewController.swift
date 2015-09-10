@@ -17,7 +17,7 @@ class RecentPhotosCollectionViewController: UICollectionViewController, UICollec
     var delegate: RecentPhotosCollectionViewControllerDelegate?
     
     private var selectedAssets: [PHAsset] {
-        return (self.collectionView?.indexPathsForSelectedItems() as? [NSIndexPath])?.map({ self.assetsFetchResults![$0.item] as! PHAsset }) ?? []
+        return self.collectionView?.indexPathsForSelectedItems()?.map({ self.assetsFetchResults![$0.item] as! PHAsset }) ?? []
     }
     
     private var assetsFetchResults: PHFetchResult?
@@ -116,7 +116,7 @@ class RecentPhotosCollectionViewController: UICollectionViewController, UICollec
             case .Authorized:
                 PHPhotoLibrary.sharedPhotoLibrary().registerChangeObserver(self)
                 
-                if let fetchedAssetCollection = PHAssetCollection.fetchAssetCollectionsWithType(.SmartAlbum, subtype: .SmartAlbumRecentlyAdded, options: nil)?.lastObject as? PHAssetCollection {
+                if let fetchedAssetCollection = PHAssetCollection.fetchAssetCollectionsWithType(.SmartAlbum, subtype: .SmartAlbumRecentlyAdded, options: nil).lastObject as? PHAssetCollection {
                     let fetchOptions = PHFetchOptions()
                     fetchOptions.predicate = NSPredicate(format: "SELF.mediaType = %d", PHAssetMediaType.Image.rawValue)
                     fetchOptions.sortDescriptors = [ NSSortDescriptor(key: "creationDate", ascending: false) ]
@@ -271,7 +271,7 @@ class RecentPhotosCollectionViewController: UICollectionViewController, UICollec
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         switch (indexPath.section, indexPath.item) {
         default:
-            let selectedItemsCount = collectionView.indexPathsForSelectedItems().count
+            let selectedItemsCount = collectionView.indexPathsForSelectedItems()?.count ?? 0
             
             self.addPhotoAction.enabled = (selectedItemsCount != 0)
             self.addPhotoAction.setValue(NSString.localizedStringWithFormat(NSLocalizedString("Add %d Photos", tableName: "Nemo", bundle: NSBundle.nemoBundle(), comment: ""), selectedItemsCount), forKey: "title")
@@ -281,7 +281,7 @@ class RecentPhotosCollectionViewController: UICollectionViewController, UICollec
     override func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
         switch (indexPath.section, indexPath.item) {
         default:
-            let selectedItemsCount = collectionView.indexPathsForSelectedItems().count
+            let selectedItemsCount = collectionView.indexPathsForSelectedItems()?.count ?? 0
             
             self.addPhotoAction.enabled = (selectedItemsCount != 0)
             self.addPhotoAction.setValue(NSString.localizedStringWithFormat(NSLocalizedString("Add %d Photos", tableName: "Nemo", bundle: NSBundle.nemoBundle(), comment: ""), selectedItemsCount), forKey: "title")
@@ -294,9 +294,11 @@ class RecentPhotosCollectionViewController: UICollectionViewController, UICollec
     }
     
     // MARK: PHPhotoLibraryChangeObserver
-    func photoLibraryDidChange(changeInstance: PHChange!) {
+    func photoLibraryDidChange(changeInstance: PHChange) {
         dispatch_async(dispatch_get_main_queue(), {
-            if let collectionChanges = changeInstance.changeDetailsForFetchResult(self.assetsFetchResults) {
+            guard let assetsFetchResults = self.assetsFetchResults else { return }
+            
+            if let collectionChanges = changeInstance.changeDetailsForFetchResult(assetsFetchResults) {
                 self.assetsFetchResults = collectionChanges.fetchResultAfterChanges
                 
                 if let collectionView = self.collectionView where self.recentPhotosSection > 0 {
@@ -304,30 +306,30 @@ class RecentPhotosCollectionViewController: UICollectionViewController, UICollec
                         self.collectionView!.reloadSections(NSIndexSet(index: self.recentPhotosSection))
                     }
                     else {
-                        var selectedIndexPaths = Set<NSIndexPath>(self.collectionView!.indexPathsForSelectedItems() as! [NSIndexPath])
+                        var selectedIndexPaths = Set<NSIndexPath>(self.collectionView!.indexPathsForSelectedItems() ?? [])
                         
                         collectionView.performBatchUpdates({ () -> Void in
                             let removedIndexes = collectionChanges.removedIndexes?.indexesWithOptions(.Concurrent, passingTest: { (index, stop) -> Bool in
                                 return index < self.maxFetchResultsCount
                             }) ?? NSIndexSet()
                             if removedIndexes.count > 0 {
-                                collectionView.deleteItemsAtIndexPaths(map(removedIndexes, { NSIndexPath(forItem: $0, inSection: self.recentPhotosSection) }))
-                                collectionView.insertItemsAtIndexPaths(map(NSIndexSet(indexesInRange: NSRange(location: self.maxFetchResultsCount - removedIndexes.count, length: removedIndexes.count - max(self.maxFetchResultsCount - self.assetsFetchResults!.count, 0))), { NSIndexPath(forItem: $0, inSection: self.recentPhotosSection) }))
+                                collectionView.deleteItemsAtIndexPaths(removedIndexes.map({ NSIndexPath(forItem: $0, inSection: self.recentPhotosSection) }))
+                                collectionView.insertItemsAtIndexPaths(NSIndexSet(indexesInRange: NSRange(location: self.maxFetchResultsCount - removedIndexes.count, length: removedIndexes.count - max(self.maxFetchResultsCount - self.assetsFetchResults!.count, 0))).map({ NSIndexPath(forItem: $0, inSection: self.recentPhotosSection) }))
                             }
                             
                             let insertedindexes = collectionChanges.insertedIndexes?.indexesWithOptions(.Concurrent, passingTest: { (index, stop) -> Bool in
                                 return index < self.maxFetchResultsCount
                             }) ?? NSIndexSet()
                             if insertedindexes.count > 0 {
-                                collectionView.insertItemsAtIndexPaths(map(insertedindexes, { NSIndexPath(forItem: $0, inSection: self.recentPhotosSection) }))
-                                collectionView.deleteItemsAtIndexPaths(map(NSIndexSet(indexesInRange: NSRange(location: self.maxFetchResultsCount - insertedindexes.count, length: insertedindexes.count)), { NSIndexPath(forItem: $0, inSection: self.recentPhotosSection) }))
+                                collectionView.insertItemsAtIndexPaths(insertedindexes.map({ NSIndexPath(forItem: $0, inSection: self.recentPhotosSection) }))
+                                collectionView.deleteItemsAtIndexPaths(NSIndexSet(indexesInRange: NSRange(location: self.maxFetchResultsCount - insertedindexes.count, length: insertedindexes.count)).map({ NSIndexPath(forItem: $0, inSection: self.recentPhotosSection) }))
                             }
                             
                             let chanagedIndexes = collectionChanges.changedIndexes?.indexesWithOptions(.Concurrent, passingTest: { (index, stop) -> Bool in
                                 return index < self.maxFetchResultsCount
                             }) ?? NSIndexSet()
                             if chanagedIndexes.count > 0 {
-                                let chanagedIndexPaths = map(chanagedIndexes, { NSIndexPath(forItem: $0, inSection: self.recentPhotosSection) }) as! [NSIndexPath]
+                                let chanagedIndexPaths = chanagedIndexes.map({ NSIndexPath(forItem: $0, inSection: self.recentPhotosSection) })
                                 
                                 selectedIndexPaths.intersectInPlace(Set<NSIndexPath>(chanagedIndexPaths))
                                 collectionView.reloadItemsAtIndexPaths(chanagedIndexPaths)
@@ -340,8 +342,6 @@ class RecentPhotosCollectionViewController: UICollectionViewController, UICollec
                                 self.resetCachedAssets()
                         })
                     }
-                    
-                    
                 }
             }
         })
