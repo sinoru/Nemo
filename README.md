@@ -7,7 +7,7 @@ Nemo is a photos menu framework for iOS
 
 ## Installation
 ### [CocoaPods](https://cocoapods.org)
-You can install Nemo with Cocoapods, simply add this line to your Podfile:
+You can install Nemo with CocoaPods, simply add this line to your Podfile:
 
 ```ruby
 pod 'Nemo'
