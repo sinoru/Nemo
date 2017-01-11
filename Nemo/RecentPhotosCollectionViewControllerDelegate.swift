@@ -8,6 +8,6 @@
 
 import UIKit
 
-protocol RecentPhotosCollectionViewControllerDelegate {
+protocol RecentPhotosCollectionViewControllerDelegate: class {
    func recentPhotosCollectionViewController(_ controller: RecentPhotosCollectionViewController, didFinishPickingPhotos photos: [PHAsset])
 }

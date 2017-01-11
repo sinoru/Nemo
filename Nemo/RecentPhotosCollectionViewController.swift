@@ -14,7 +14,7 @@ private let reusePhotoIdentifier = "PhotoCell"
 class RecentPhotosCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, UINavigationControllerDelegate, PHPhotoLibraryChangeObserver, UIImagePickerControllerDelegate {
 
     var addPhotoAction: UIAlertAction!
-    var delegate: RecentPhotosCollectionViewControllerDelegate?
+    weak var delegate: RecentPhotosCollectionViewControllerDelegate?
 
     fileprivate var selectedAssets: [PHAsset] {
         return self.collectionView?.indexPathsForSelectedItems?.map({ self.assetsFetchResults![$0.item] }) ?? []
@@ -206,7 +206,7 @@ class RecentPhotosCollectionViewController: UICollectionViewController, UICollec
     // MARK: -
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         guard let collectionViewLayout = collectionViewLayout as? UICollectionViewFlowLayout else { fatalError("It's not flow layout!") }
-        
+
         switch indexPath.section {
         case self.recentPhotosSection:
             let asset = self.assetsFetchResults![indexPath.item]

@@ -55,7 +55,7 @@ class CheckIndicatorView: UIView {
         context?.strokePath()
 
         context?.restoreGState()
-        if (selected) {
+        if selected {
             context?.saveGState()
             context?.setFillColor(self.tintColor.cgColor)
             context?.fillEllipse(in: self.bounds.insetBy(dx: 4.32, dy: 4.32))

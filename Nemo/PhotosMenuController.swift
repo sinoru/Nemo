@@ -14,7 +14,7 @@ import MobileCoreServices
 final public class PhotosMenuController: UIAlertController {
 
     /// The photo menu’s delegate object.
-    public var delegate: (PhotosMenuControllerDelegate & UIImagePickerControllerDelegate & UINavigationControllerDelegate)?
+    public weak var delegate: (PhotosMenuControllerDelegate & UIImagePickerControllerDelegate & UINavigationControllerDelegate)?
 
     /// An array indicating the media types to be accessed by the media picker controller.
     public var mediaTypesForImagePicker: [String] = [kUTTypeImage as String] {
@@ -28,7 +28,7 @@ final public class PhotosMenuController: UIAlertController {
     fileprivate var photoLibraryAction: UIAlertAction!
     fileprivate var cameraAction: UIAlertAction!
     fileprivate var cancelAction: UIAlertAction!
-    fileprivate var customActions: Array<UIAlertAction> = []
+    fileprivate var customActions: [UIAlertAction] = []
 
     fileprivate var capturedPresentingViewController: UIViewController?
     fileprivate var capturedPopoverPresentationControllerBarButtonItem: UIBarButtonItem?
