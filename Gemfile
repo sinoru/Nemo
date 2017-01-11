@@ -1,9 +1,9 @@
 #
-#  .travis.yml
+#  Gemfile
 #  Nemo
 #
-#  Created by Sinoru on 2015. 8. 10..
-#  Copyright © 2015-2017 Sinoru. All rights reserved.
+#  Created by Sinoru on 2017. 1. 11..
+#  Copyright © 2017 Sinoru. All rights reserved.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
 #  you may not use this file except in compliance with the License.
@@ -17,17 +17,5 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-language: swift
-os: osx
-osx_image: xcode8.2
-env:
-  global:
-  - XCODE_PROJECT=Nemo.xcodeproj
-  - XCODE_CONFIGURATION=Release
-  - XCODE_SDK=iphonesimulator
-  matrix:
-  - XCODE_SCHEME=Nemo
-  - XCODE_SCHEME=NemoExample
-script:
-- xcodebuild -project $XCODE_PROJECT -scheme $XCODE_SCHEME -configuration $XCODE_CONFIGURATION -sdk $XCODE_SDK analyze | bundle exec xcpretty
-- pod lib lint
+source 'https://rubygems.org'
+gem 'xcpretty'

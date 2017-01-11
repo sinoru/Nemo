@@ -3,38 +3,49 @@
 //  Nemo
 //
 //  Created by Sinoru on 2015. 8. 8..
-//  Copyright (c) 2015년 Sinoru. All rights reserved.
+//  Copyright © 2015-2017 Sinoru. All rights reserved.
 //
+//  Licensed under the Apache License, Version 2.0 (the "License");
+//  you may not use this file except in compliance with the License.
+//  You may obtain a copy of the License at
+//  
+//  http://www.apache.org/licenses/LICENSE-2.0
+//  
+//  Unless required by applicable law or agreed to in writing, software
+//  distributed under the License is distributed on an "AS IS" BASIS,
+//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//  See the License for the specific language governing permissions and
+//  limitations under the License.
 
 import UIKit
 import MobileCoreServices
 
 /// PhotosMenuController is a menu for photo picking. Like as Message.app's one. It includes recently photo section to easily select multiple photos.
 @objc(NMPhotosMenuController)
-public class PhotosMenuController: UIAlertController {
+final public class PhotosMenuController: UIAlertController {
 
     /// The photo menu’s delegate object.
-    public var delegate: protocol<PhotosMenuControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>?
-    
+    public weak var delegate: (PhotosMenuControllerDelegate & UIImagePickerControllerDelegate & UINavigationControllerDelegate)?
+
     /// An array indicating the media types to be accessed by the media picker controller.
     public var mediaTypesForImagePicker: [String] = [kUTTypeImage as String] {
         didSet {
             self.updateCameraActionTitle()
         }
     }
-    
-    private var recentPhotosCollectionViewController: RecentPhotosCollectionViewController!
-    
-    private var photoLibraryAction: UIAlertAction!
-    private var cameraAction: UIAlertAction!
-    private var cancelAction: UIAlertAction!
-    private var customActions: Array<UIAlertAction> = []
-    
-    private var capturedPresentingViewController: UIViewController?
-    private var capturedPopoverPresentationControllerBarButtonItem: UIBarButtonItem?
-    private var capturedPopoverPresentationControllerSourceView: UIView?
-    private var capturedPopoverPresentationControllerSourceRect: CGRect?
-    
+
+    fileprivate var recentPhotosCollectionViewController: RecentPhotosCollectionViewController!
+
+    fileprivate var photoLibraryAction: UIAlertAction!
+    fileprivate var cameraAction: UIAlertAction!
+    fileprivate var cancelAction: UIAlertAction!
+    fileprivate var customActions: [UIAlertAction] = []
+
+    fileprivate var capturedPresentingViewController: UIViewController?
+    fileprivate var capturedPopoverPresentationControllerBarButtonItem: UIBarButtonItem?
+    fileprivate var capturedPopoverPresentationControllerSourceView: UIView?
+    fileprivate var capturedPopoverPresentationControllerSourceRect: CGRect?
+
     /// Called after the view has been loaded. For view controllers created in code, this is after -loadView. For view controllers unarchived from a nib, this is after the view is set.
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,95 +54,92 @@ public class PhotosMenuController: UIAlertController {
         self.recentPhotosCollectionViewController = RecentPhotosCollectionViewController()
         self.recentPhotosCollectionViewController.preferredContentSize = CGSize(width: 0.0, height: 172.0)
         self.recentPhotosCollectionViewController.delegate = self
-        
-        self.photoLibraryAction = UIAlertAction(title: NSLocalizedString("Photo Library", tableName: "Nemo", bundle: NSBundle.nemoBundle(), comment: ""), style: .Default, handler: { (action) -> Void in
+
+        self.photoLibraryAction = UIAlertAction(title: NSLocalizedString("Photo Library", tableName: "Nemo", bundle: Bundle.nemoBundle(), comment: ""), style: .default, handler: { (_) -> Void in
             let imagePickerController = UIImagePickerController()
             imagePickerController.delegate = self.delegate
-            imagePickerController.modalPresentationStyle = .Popover
-            imagePickerController.sourceType = .PhotoLibrary
+            imagePickerController.modalPresentationStyle = .popover
+            imagePickerController.sourceType = .photoLibrary
             imagePickerController.mediaTypes = self.mediaTypesForImagePicker
-            
+
             imagePickerController.popoverPresentationController?.barButtonItem = self.capturedPopoverPresentationControllerBarButtonItem
             imagePickerController.popoverPresentationController?.sourceView = self.capturedPopoverPresentationControllerSourceView
-            imagePickerController.popoverPresentationController?.sourceRect = self.capturedPopoverPresentationControllerSourceRect ?? CGRectZero
-            
+            imagePickerController.popoverPresentationController?.sourceRect = self.capturedPopoverPresentationControllerSourceRect ?? CGRect.zero
+
             self.delegate?.photosMenuController?(self, didPickImagePicker: imagePickerController)
-            
-            self.capturedPresentingViewController?.presentViewController(imagePickerController, animated: true, completion: nil)
+
+            self.capturedPresentingViewController?.present(imagePickerController, animated: true, completion: nil)
         })
-        
-        self.cameraAction = UIAlertAction(title: NSLocalizedString("Take Photo or Video", tableName: "Nemo", bundle: NSBundle.nemoBundle(), comment: ""), style: .Default, handler: { (action) -> Void in
+
+        self.cameraAction = UIAlertAction(title: NSLocalizedString("Take Photo or Video", tableName: "Nemo", bundle: Bundle.nemoBundle(), comment: ""), style: .default, handler: { (_) -> Void in
             let imagePickerController = UIImagePickerController()
             imagePickerController.delegate = self.delegate
-            imagePickerController.modalPresentationStyle = .FullScreen
-            imagePickerController.sourceType = .Camera
+            imagePickerController.modalPresentationStyle = .fullScreen
+            imagePickerController.sourceType = .camera
             imagePickerController.mediaTypes = self.mediaTypesForImagePicker
-            
+
             self.delegate?.photosMenuController?(self, didPickImagePicker: imagePickerController)
-            
-            self.capturedPresentingViewController?.presentViewController(imagePickerController, animated: true, completion: nil)
+
+            self.capturedPresentingViewController?.present(imagePickerController, animated: true, completion: nil)
         })
         self.updateCameraActionTitle()
-        
-        self.cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", tableName: "Nemo", bundle: NSBundle.nemoBundle(), comment: ""), style: .Cancel,  handler: { (action) -> Void in
+
+        self.cancelAction = UIAlertAction(title: NSLocalizedString("Cancel", tableName: "Nemo", bundle: Bundle.nemoBundle(), comment: ""), style: .cancel, handler: { (_) -> Void in
             self.delegate?.photosMenuControllerDidCancel?(self)
         })
     }
-    
+
     /// Called when the view is about to made visible.
-    public override func viewWillAppear(animated: Bool) {
+    public override func viewWillAppear(_ animated: Bool) {
         self.setValue(self.recentPhotosCollectionViewController, forKey: "contentViewController")
         super.addAction(self.recentPhotosCollectionViewController.addPhotoAction)
-        
-        if UIImagePickerController.isSourceTypeAvailable(.PhotoLibrary) {
+
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
             super.addAction(self.photoLibraryAction)
         }
-        if UIImagePickerController.isSourceTypeAvailable(.Camera) {
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
             super.addAction(self.cameraAction)
         }
-        
+
         for action in customActions {
             super.addAction(action)
         }
-        
+
         super.addAction(self.cancelAction)
-        
+
         super.viewWillAppear(animated)
-        
+
         self.capturedPresentingViewController = self.presentingViewController
         self.capturedPopoverPresentationControllerBarButtonItem = self.popoverPresentationController?.barButtonItem
         self.capturedPopoverPresentationControllerSourceRect = self.popoverPresentationController?.sourceRect
         self.capturedPopoverPresentationControllerSourceView = self.popoverPresentationController?.sourceView
     }
-    
+
     /**
     Attaches an action object to the alert or action sheet.
     
     :param: action The action object to display as part of the alert.
     */
-    public override func addAction(action: UIAlertAction) {
+    public override func addAction(_ action: UIAlertAction) {
         customActions += [action]
     }
-    
-    private func updateCameraActionTitle() {
+
+    fileprivate func updateCameraActionTitle() {
         let cameraActionTitle: String
-        
-        let mediaTypesContainImage = (self.mediaTypesForImagePicker.indexOf((kUTTypeImage as String)) != nil)
-        let mediaTypesContainMovie = (self.mediaTypesForImagePicker.indexOf((kUTTypeMovie as String)) != nil)
-        
+
+        let mediaTypesContainImage = (self.mediaTypesForImagePicker.index(of: (kUTTypeImage as String)) != nil)
+        let mediaTypesContainMovie = (self.mediaTypesForImagePicker.index(of: (kUTTypeMovie as String)) != nil)
+
         if mediaTypesContainImage && mediaTypesContainMovie {
-            cameraActionTitle = NSLocalizedString("Take Photo or Video", tableName: "Nemo", bundle: NSBundle.nemoBundle(), comment: "")
+            cameraActionTitle = NSLocalizedString("Take Photo or Video", tableName: "Nemo", bundle: Bundle.nemoBundle(), comment: "")
+        } else if mediaTypesContainImage {
+            cameraActionTitle = NSLocalizedString("Take Photo", tableName: "Nemo", bundle: Bundle.nemoBundle(), comment: "")
+        } else if mediaTypesContainMovie {
+            cameraActionTitle = NSLocalizedString("Take Video", tableName: "Nemo", bundle: Bundle.nemoBundle(), comment: "")
+        } else {
+            cameraActionTitle = NSLocalizedString("Take Photo or Video", tableName: "Nemo", bundle: Bundle.nemoBundle(), comment: "")
         }
-        else if mediaTypesContainImage {
-            cameraActionTitle = NSLocalizedString("Take Photo", tableName: "Nemo", bundle: NSBundle.nemoBundle(), comment: "")
-        }
-        else if mediaTypesContainMovie {
-            cameraActionTitle = NSLocalizedString("Take Video", tableName: "Nemo", bundle: NSBundle.nemoBundle(), comment: "")
-        }
-        else {
-            cameraActionTitle = NSLocalizedString("Take Photo or Video", tableName: "Nemo", bundle: NSBundle.nemoBundle(), comment: "")
-        }
-        
+
         self.cameraAction.setValue(cameraActionTitle, forKey: "title")
     }
 
@@ -148,7 +156,7 @@ public class PhotosMenuController: UIAlertController {
 }
 
 extension PhotosMenuController: RecentPhotosCollectionViewControllerDelegate {
-    func recentPhotosCollectionViewController(controller: RecentPhotosCollectionViewController, didFinishPickingPhotos photos: [PHAsset]) {
+    func recentPhotosCollectionViewController(_ controller: RecentPhotosCollectionViewController, didFinishPickingPhotos photos: [PHAsset]) {
         self.delegate?.photosMenuController?(self, didPickPhotos: photos)
     }
 }
