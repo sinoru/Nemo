@@ -1,3 +1,8 @@
+### 1.1
+##### Enhancements
+- Swift 3.0 Support
+
+
 ### 1.0
 ##### Enhancements
 - Swift 2.0 Support
