@@ -1,0 +1,9 @@
+#
+#  .swiftlint.yml
+#  Nemo
+#  
+#  Created by Sinoru on 2017. 1. 11..
+#  Copyright © 2017 Sinoru. All rights reserved.
+
+disabled_rules:
+  - line_length
