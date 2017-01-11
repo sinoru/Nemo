@@ -15,46 +15,46 @@ class RecentPhotosCollectionViewController: UICollectionViewController, UICollec
 
     var addPhotoAction: UIAlertAction!
     var delegate: RecentPhotosCollectionViewControllerDelegate?
-    
+
     fileprivate var selectedAssets: [PHAsset] {
         return self.collectionView?.indexPathsForSelectedItems?.map({ self.assetsFetchResults![$0.item] }) ?? []
     }
-    
+
     fileprivate var assetsFetchResults: PHFetchResult<PHAsset>?
     fileprivate let maxFetchResultsCount = 70
     fileprivate let imageManager = PHCachingImageManager()
     fileprivate var cachingImageThumbnailSize = CGSize.zero
     fileprivate let collectionViewFlowLayout: UICollectionViewFlowLayout
-    
+
     fileprivate var recentPhotosSection: Int = 0
-    
+
     required init() {
         self.collectionViewFlowLayout = UICollectionViewFlowLayout()
         self.collectionViewFlowLayout.scrollDirection = .horizontal
         self.collectionViewFlowLayout.minimumLineSpacing = 4.0
         self.collectionViewFlowLayout.minimumInteritemSpacing = 4.0
         self.collectionViewFlowLayout.sectionInset = UIEdgeInsets(top: 6.0, left: 6.0, bottom: 6.0, right: 6.0)
-        
+
         super.init(collectionViewLayout: collectionViewFlowLayout)
-        
-        self.addPhotoAction = UIAlertAction(title: String.localizedStringWithFormat(NSLocalizedString("Add %d Photos", tableName: "Nemo", bundle: Bundle.nemoBundle(), comment: ""), 0) as String, style: .default, handler: { (action) -> Void in
+
+        self.addPhotoAction = UIAlertAction(title: String.localizedStringWithFormat(NSLocalizedString("Add %d Photos", tableName: "Nemo", bundle: Bundle.nemoBundle(), comment: ""), 0) as String, style: .default, handler: { (_) -> Void in
             self.delegate?.recentPhotosCollectionViewController(self, didFinishPickingPhotos: self.selectedAssets)
         })
         self.addPhotoAction.isEnabled = false
     }
-    
+
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     deinit {
         PHPhotoLibrary.shared().unregisterChangeObserver(self)
         NotificationCenter.default.removeObserver(self)
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.useLayoutToLayoutNavigationTransitions = false
 
         // Uncomment the following line to preserve selection between presentations
@@ -68,18 +68,18 @@ class RecentPhotosCollectionViewController: UICollectionViewController, UICollec
         self.collectionView!.allowsMultipleSelection = true
         self.collectionView!.showsHorizontalScrollIndicator = false
         self.collectionView!.showsVerticalScrollIndicator = false
-        
+
         self.loadFetchResults()
-        
+
         let cellMaxWidth = self.preferredContentSize.width - collectionViewFlowLayout.sectionInset.left - collectionViewFlowLayout.sectionInset.right
         let cellHeight = self.preferredContentSize.height - collectionViewFlowLayout.sectionInset.top - collectionViewFlowLayout.sectionInset.bottom
         self.collectionViewFlowLayout.itemSize = CGSize(width: cellHeight, height: cellHeight)
         self.cachingImageThumbnailSize = CGSize(width: cellMaxWidth, height: cellHeight)
     }
-    
+
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        
+
         let cellMaxWidth = size.width - collectionViewFlowLayout.sectionInset.left - collectionViewFlowLayout.sectionInset.right
         let cellHeight = size.height - collectionViewFlowLayout.sectionInset.top - collectionViewFlowLayout.sectionInset.bottom
         self.collectionViewFlowLayout.itemSize = CGSize(width: cellHeight, height: cellHeight)
@@ -88,10 +88,10 @@ class RecentPhotosCollectionViewController: UICollectionViewController, UICollec
         self.resetCachedAssets()
         self.updateCachedAssets()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         self.updateCachedAssets()
     }
 
@@ -109,22 +109,22 @@ class RecentPhotosCollectionViewController: UICollectionViewController, UICollec
         // Pass the selected object to the new view controller.
     }
     */
-    
+
     func loadFetchResults() {
         PHPhotoLibrary.requestAuthorization({ (status) -> Void in
             switch status {
             case .authorized:
                 PHPhotoLibrary.shared().register(self)
-                
+
                 if let fetchedAssetCollection = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumRecentlyAdded, options: nil).lastObject {
                     let fetchOptions = PHFetchOptions()
                     fetchOptions.predicate = NSPredicate(format: "SELF.mediaType = %d", PHAssetMediaType.image.rawValue)
                     fetchOptions.sortDescriptors = [ NSSortDescriptor(key: "creationDate", ascending: false) ]
                     self.assetsFetchResults = PHAsset.fetchAssets(in: fetchedAssetCollection, options: fetchOptions)
                 }
-                
+
                 self.updateCachedAssets()
-                
+
                 DispatchQueue.main.async(execute: { () -> Void in
                     self.collectionView!.reloadSections(IndexSet(integer: self.recentPhotosSection))
                 })
@@ -134,22 +134,22 @@ class RecentPhotosCollectionViewController: UICollectionViewController, UICollec
             }
         })
     }
-    
+
     // MARK: Asset Caching
-    
+
     func resetCachedAssets() {
         self.imageManager.stopCachingImagesForAllAssets()
     }
-    
+
     func updateCachedAssets() {
         let isViewVisible = self.isViewLoaded && (self.view?.window != nil)
         if isViewVisible {
             return
         }
-        
+
         if self.collectionView != nil && (self.assetsFetchResults?.count ?? 0) > 0 {
             let imageRequestOptions = PHImageRequestOptions()
-            
+
             if let assets = self.assetsFetchResults?.objects(at: IndexSet(integersIn: NSRange(location: 0, length: min(self.assetsFetchResults?.count ?? 0, self.maxFetchResultsCount)).toRange() ?? 0..<0)) {
                 self.imageManager.startCachingImages(for: assets, targetSize: self.cachingImageThumbnailSize, contentMode: .aspectFit, options: imageRequestOptions)
             }
@@ -160,14 +160,13 @@ class RecentPhotosCollectionViewController: UICollectionViewController, UICollec
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         var numberOfSections: Int = 0
-        
+
         if self.recentPhotosSection >= 0 {
             numberOfSections += 1
         }
-        
+
         return numberOfSections
     }
-
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
@@ -182,49 +181,49 @@ class RecentPhotosCollectionViewController: UICollectionViewController, UICollec
         switch indexPath.section {
         case self.recentPhotosSection:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reusePhotoIdentifier, for: indexPath) as! RecentPhotosPhotoCollectionViewCell
-            
+
             // Configure the cell
             let currentTag = cell.tag + 1
             cell.tag = currentTag
-            
+
             let asset = self.assetsFetchResults![indexPath.item]
-            
+
             let imageRequestOptions = PHImageRequestOptions()
             imageRequestOptions.isNetworkAccessAllowed = true
-            
-            self.imageManager.requestImage(for: asset, targetSize: cachingImageThumbnailSize, contentMode: .aspectFill, options: imageRequestOptions) { (result, info) -> Void in
+
+            self.imageManager.requestImage(for: asset, targetSize: cachingImageThumbnailSize, contentMode: .aspectFill, options: imageRequestOptions) { (result, _) -> Void in
                 if cell.tag == currentTag {
                     cell.image = result
                 }
             }
-            
+
             return cell
         default:
             fatalError("Unknown IndexPath: \(indexPath)")
         }
     }
-    
+
     // MARK: -
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         switch indexPath.section {
         case self.recentPhotosSection:
             let asset = self.assetsFetchResults![indexPath.item]
-            
+
             let itemCellHeight = (collectionViewLayout as! UICollectionViewFlowLayout).itemSize.height
-            
+
             let pixelRatio = CGFloat(asset.pixelWidth) / CGFloat(asset.pixelHeight)
-            
+
             return CGSize(width: pixelRatio * itemCellHeight, height: itemCellHeight)
         default:
             fatalError("Unknown IndexPath: \(indexPath)")
         }
     }
-    
+
     override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         switch indexPath.section {
         case self.recentPhotosSection:
             let cell = cell as! RecentPhotosPhotoCollectionViewCell
-            
+
             DispatchQueue.main.async(execute: { () -> Void in
                 DispatchQueue.main.async(execute: { () -> Void in
                     let layoutConstraint = NSLayoutConstraint(item: collectionView.superview!, attribute: .right, relatedBy: .greaterThanOrEqual, toItem: cell.checkIndicatorView, attribute: .right, multiplier: 1.0, constant: 4.0)
@@ -267,78 +266,77 @@ class RecentPhotosCollectionViewController: UICollectionViewController, UICollec
     
     }
     */
-    
+
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch (indexPath.section, indexPath.item) {
         default:
             let selectedItemsCount = collectionView.indexPathsForSelectedItems?.count ?? 0
-            
+
             self.addPhotoAction.isEnabled = (selectedItemsCount != 0)
             self.addPhotoAction.setValue(String.localizedStringWithFormat(NSLocalizedString("Add %d Photos", tableName: "Nemo", bundle: Bundle.nemoBundle(), comment: ""), selectedItemsCount), forKey: "title")
         }
     }
-    
+
     override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         switch (indexPath.section, indexPath.item) {
         default:
             let selectedItemsCount = collectionView.indexPathsForSelectedItems?.count ?? 0
-            
+
             self.addPhotoAction.isEnabled = (selectedItemsCount != 0)
             self.addPhotoAction.setValue(String.localizedStringWithFormat(NSLocalizedString("Add %d Photos", tableName: "Nemo", bundle: Bundle.nemoBundle(), comment: ""), selectedItemsCount), forKey: "title")
         }
     }
-    
+
     // MARK: -
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.updateCachedAssets()
     }
-    
+
     // MARK: PHPhotoLibraryChangeObserver
     func photoLibraryDidChange(_ changeInstance: PHChange) {
         DispatchQueue.main.async(execute: {
             guard let assetsFetchResults = self.assetsFetchResults else { return }
-            
+
             if let collectionChanges = changeInstance.changeDetails(for: assetsFetchResults as! PHFetchResult<PHObject>) {
                 self.assetsFetchResults = collectionChanges.fetchResultAfterChanges as? PHFetchResult<PHAsset>
-                
+
                 if let collectionView = self.collectionView, self.recentPhotosSection > 0 {
                     if !collectionChanges.hasIncrementalChanges || collectionChanges.hasMoves {
                         self.collectionView!.reloadSections(IndexSet(integer: self.recentPhotosSection))
-                    }
-                    else {
+                    } else {
                         var selectedIndexPaths = Set<IndexPath>(self.collectionView!.indexPathsForSelectedItems ?? [])
-                        
+
                         collectionView.performBatchUpdates({ () -> Void in
-                            let removedIndexes = (collectionChanges.removedIndexes as NSIndexSet?)?.indexes(options: .concurrent, passingTest: { (index, stop) -> Bool in
+                            let removedIndexes = (collectionChanges.removedIndexes as NSIndexSet?)?.indexes(options: .concurrent, passingTest: { (index, _) -> Bool in
                                 return index < self.maxFetchResultsCount
                             }) ?? IndexSet()
                             if removedIndexes.count > 0 {
                                 collectionView.deleteItems(at: removedIndexes.map({ IndexPath(item: $0, section: self.recentPhotosSection) }))
                                 collectionView.insertItems(at: IndexSet(integersIn: NSRange(location: self.maxFetchResultsCount - removedIndexes.count, length: removedIndexes.count - max(self.maxFetchResultsCount - self.assetsFetchResults!.count, 0)).toRange() ?? 0..<0).map({ IndexPath(item: $0, section: self.recentPhotosSection) }))
                             }
-                            
-                            let insertedindexes = (collectionChanges.insertedIndexes as NSIndexSet?)?.indexes(options: .concurrent, passingTest: { (index, stop) -> Bool in
+
+                            let insertedindexes = (collectionChanges.insertedIndexes as NSIndexSet?)?.indexes(options: .concurrent, passingTest: { (index, _) -> Bool in
                                 return index < self.maxFetchResultsCount
                             }) ?? IndexSet()
                             if insertedindexes.count > 0 {
                                 collectionView.insertItems(at: insertedindexes.map({ IndexPath(item: $0, section: self.recentPhotosSection) }))
                                 collectionView.deleteItems(at: IndexSet(integersIn: NSRange(location: self.maxFetchResultsCount - insertedindexes.count, length: insertedindexes.count).toRange() ?? 0..<0).map({ IndexPath(item: $0, section: self.recentPhotosSection) }))
                             }
-                            
-                            let chanagedIndexes = (collectionChanges.changedIndexes as NSIndexSet?)?.indexes(options: .concurrent, passingTest: { (index, stop) -> Bool in
+
+                            let chanagedIndexes = (collectionChanges.changedIndexes as NSIndexSet?)?.indexes(options: .concurrent, passingTest: { (index, _) -> Bool in
                                 return index < self.maxFetchResultsCount
                             }) ?? IndexSet()
                             if chanagedIndexes.count > 0 {
                                 let chanagedIndexPaths = chanagedIndexes.map({ IndexPath(item: $0, section: self.recentPhotosSection) })
-                                
+
                                 selectedIndexPaths.formIntersection(Set<IndexPath>(chanagedIndexPaths))
                                 collectionView.reloadItems(at: chanagedIndexPaths)
                             }
-                            }, completion: { (finished) -> Void in
-                                for indexPath in selectedIndexPaths{
+                            }, completion: { (_) -> Void in
+                                for indexPath in selectedIndexPaths {
                                     collectionView.selectItem(at: indexPath, animated: false, scrollPosition: UICollectionViewScrollPosition())
                                 }
-                                
+
                                 self.resetCachedAssets()
                         })
                     }

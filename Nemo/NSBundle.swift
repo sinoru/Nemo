@@ -9,7 +9,7 @@
 import UIKit
 
 extension Bundle {
-   
+
     class func nemoBundle() -> Bundle {
         return Bundle(for: PhotosMenuController.self)
     }
