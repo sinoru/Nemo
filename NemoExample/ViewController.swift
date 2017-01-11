@@ -62,7 +62,7 @@ class ViewController: UICollectionViewController, PhotosMenuControllerDelegate, 
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! CollectionViewCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? CollectionViewCell else { fatalError("Can't dequeue cell!") }
 
         // Configure the cell
         cell.imageView.image = self.images[indexPath.row]

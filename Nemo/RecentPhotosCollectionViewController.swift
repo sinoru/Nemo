@@ -180,7 +180,7 @@ class RecentPhotosCollectionViewController: UICollectionViewController, UICollec
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch indexPath.section {
         case self.recentPhotosSection:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reusePhotoIdentifier, for: indexPath) as! RecentPhotosPhotoCollectionViewCell
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reusePhotoIdentifier, for: indexPath) as? RecentPhotosPhotoCollectionViewCell else { fatalError("Can't dequeue cell!") }
 
             // Configure the cell
             let currentTag = cell.tag + 1
@@ -205,11 +205,13 @@ class RecentPhotosCollectionViewController: UICollectionViewController, UICollec
 
     // MARK: -
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        guard let collectionViewLayout = collectionViewLayout as? UICollectionViewFlowLayout else { fatalError("It's not flow layout!") }
+        
         switch indexPath.section {
         case self.recentPhotosSection:
             let asset = self.assetsFetchResults![indexPath.item]
 
-            let itemCellHeight = (collectionViewLayout as! UICollectionViewFlowLayout).itemSize.height
+            let itemCellHeight = collectionViewLayout.itemSize.height
 
             let pixelRatio = CGFloat(asset.pixelWidth) / CGFloat(asset.pixelHeight)
 
@@ -222,7 +224,7 @@ class RecentPhotosCollectionViewController: UICollectionViewController, UICollec
     override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         switch indexPath.section {
         case self.recentPhotosSection:
-            let cell = cell as! RecentPhotosPhotoCollectionViewCell
+            guard let cell = cell as? RecentPhotosPhotoCollectionViewCell else { fatalError("It's not RecentPhotosPhotoCollectionViewCell") }
 
             DispatchQueue.main.async(execute: { () -> Void in
                 DispatchQueue.main.async(execute: { () -> Void in
@@ -297,8 +299,8 @@ class RecentPhotosCollectionViewController: UICollectionViewController, UICollec
         DispatchQueue.main.async(execute: {
             guard let assetsFetchResults = self.assetsFetchResults else { return }
 
-            if let collectionChanges = changeInstance.changeDetails(for: assetsFetchResults as! PHFetchResult<PHObject>) {
-                self.assetsFetchResults = collectionChanges.fetchResultAfterChanges as? PHFetchResult<PHAsset>
+            if let collectionChanges = changeInstance.changeDetails(for: assetsFetchResults) {
+                self.assetsFetchResults = collectionChanges.fetchResultAfterChanges
 
                 if let collectionView = self.collectionView, self.recentPhotosSection > 0 {
                     if !collectionChanges.hasIncrementalChanges || collectionChanges.hasMoves {

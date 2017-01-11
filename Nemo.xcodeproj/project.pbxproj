@@ -254,6 +254,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 194D744F1B7627CD009A9284 /* Build configuration list for PBXNativeTarget "Nemo" */;
 			buildPhases = (
+				19BBEE891E264AD6003716F4 /* ShellScript */,
 				194D74341B7627CD009A9284 /* Sources */,
 				194D74351B7627CD009A9284 /* Frameworks */,
 				194D74361B7627CD009A9284 /* Headers */,
@@ -290,6 +291,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 197711311B76289B00678CC7 /* Build configuration list for PBXNativeTarget "NemoExample" */;
 			buildPhases = (
+				19BBEE8A1E264B29003716F4 /* ShellScript */,
 				1977110D1B76289B00678CC7 /* Sources */,
 				1977110E1B76289B00678CC7 /* Frameworks */,
 				1977110F1B76289B00678CC7 /* Resources */,
@@ -411,6 +413,35 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		19BBEE891E264AD6003716F4 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint lint --path Nemo\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+		};
+		19BBEE8A1E264B29003716F4 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint lint --path NemoExample\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		194D74341B7627CD009A9284 /* Sources */ = {
