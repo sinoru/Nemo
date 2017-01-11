@@ -8,9 +8,9 @@
 
 import UIKit
 
-extension NSBundle {
+extension Bundle {
    
-    class func nemoBundle() -> NSBundle {
-        return NSBundle(forClass: PhotosMenuController.self)
+    class func nemoBundle() -> Bundle {
+        return Bundle(for: PhotosMenuController.self)
     }
 }

@@ -22,7 +22,7 @@ class ViewController: UICollectionViewController, PhotosMenuControllerDelegate, 
         // self.clearsSelectionOnViewWillAppear = false
         
         // Do any additional setup after loading the view.
-        self.view.backgroundColor = UIColor.clearColor()
+        self.view.backgroundColor = UIColor.clear
     }
     
     override func didReceiveMemoryWarning() {
@@ -40,7 +40,7 @@ class ViewController: UICollectionViewController, PhotosMenuControllerDelegate, 
     }
     */
     
-    @IBAction func addPhotos(sender: AnyObject) {
+    @IBAction func addPhotos(_ sender: AnyObject) {
         let photosMenuController = Nemo.PhotosMenuController()
         photosMenuController.delegate = self
         
@@ -48,22 +48,22 @@ class ViewController: UICollectionViewController, PhotosMenuControllerDelegate, 
             popoverPresentationController.barButtonItem = sender as? UIBarButtonItem
         }
         
-        self.presentViewController(photosMenuController, animated: true, completion: nil)
+        self.present(photosMenuController, animated: true, completion: nil)
     }
     
     // MARK: UICollectionViewDataSource
     
-    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
     
     
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return images.count
     }
     
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! CollectionViewCell
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! CollectionViewCell
         
         // Configure the cell
         cell.imageView.image = self.images[indexPath.row]
@@ -103,13 +103,13 @@ class ViewController: UICollectionViewController, PhotosMenuControllerDelegate, 
     */
     
     // MARK: PhotosMenuControllerDelegate
-    func photosMenuController(controller: PhotosMenuController, didPickPhotos photos: [PHAsset]) {
+    func photosMenuController(_ controller: PhotosMenuController, didPickPhotos photos: [PHAsset]) {
         for photo in photos {
             let options = PHImageRequestOptions()
-            options.deliveryMode = .HighQualityFormat
-            options.synchronous = true
+            options.deliveryMode = .highQualityFormat
+            options.isSynchronous = true
             
-            PHImageManager.defaultManager().requestImageForAsset(photo, targetSize: CGSizeMake(100.0, 100.0), contentMode: .AspectFill, options: options, resultHandler: { (result, info) -> Void in
+            PHImageManager.default().requestImage(for: photo, targetSize: CGSize(width: 100.0, height: 100.0), contentMode: .aspectFill, options: options, resultHandler: { (result, info) -> Void in
                 if let result = result {
                     self.images.append(result)
                 }
@@ -120,12 +120,12 @@ class ViewController: UICollectionViewController, PhotosMenuControllerDelegate, 
     }
     
     // MARK: UIImagePickerControllerDelegate
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             self.images.append(image)
             self.collectionView!.reloadData()
         }
         
-        picker.presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+        picker.presentingViewController?.dismiss(animated: true, completion: nil)
     }
 }

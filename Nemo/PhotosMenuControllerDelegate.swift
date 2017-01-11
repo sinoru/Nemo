@@ -19,7 +19,7 @@ public protocol PhotosMenuControllerDelegate: NSObjectProtocol {
     :param: controller The controller object managing the menu
     :param: photos A array containing photos as PHAsset
     */
-    optional func photosMenuController(controller: PhotosMenuController, didPickPhotos photos: [PHAsset])
+    @objc optional func photosMenuController(_ controller: PhotosMenuController, didPickPhotos photos: [PHAsset])
     
     /**
     Tells the delegate that the user picked image picker
@@ -27,13 +27,13 @@ public protocol PhotosMenuControllerDelegate: NSObjectProtocol {
     :param: controller The controller object managing the menu
     :param: imagePicker The controller object that user picked
     */
-    optional func photosMenuController(controller: PhotosMenuController, didPickImagePicker imagePicker: UIImagePickerController)
+    @objc optional func photosMenuController(_ controller: PhotosMenuController, didPickImagePicker imagePicker: UIImagePickerController)
     
     /**
     Tells the delegate that the user canceled
     
     :param: controller The controller object managing the menu
     */
-    optional func photosMenuControllerDidCancel(controller: PhotosMenuController)
+    @objc optional func photosMenuControllerDidCancel(_ controller: PhotosMenuController)
     
 }

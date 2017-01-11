@@ -1,5 +1,5 @@
-language: objective-c
-osx_image: xcode7.2
+language: swift
+osx_image: xcode8.2
 env:
   global:
   - XCODE_PROJECT=Nemo.xcodeproj

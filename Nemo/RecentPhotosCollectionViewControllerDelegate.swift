@@ -9,5 +9,5 @@
 import UIKit
 
 protocol RecentPhotosCollectionViewControllerDelegate {
-   func recentPhotosCollectionViewController(controller: RecentPhotosCollectionViewController, didFinishPickingPhotos photos: [PHAsset])
+   func recentPhotosCollectionViewController(_ controller: RecentPhotosCollectionViewController, didFinishPickingPhotos photos: [PHAsset])
 }
