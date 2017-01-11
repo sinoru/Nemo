@@ -10,5 +10,5 @@ env:
   - XCODE_SCHEME=Nemo
   - XCODE_SCHEME=NemoExample
 script:
-- xctool -project $XCODE_PROJECT -scheme $XCODE_SCHEME -configuration $XCODE_CONFIGURATION -sdk $XCODE_SDK analyze
+- xcodebuild -project $XCODE_PROJECT -scheme $XCODE_SCHEME -configuration $XCODE_CONFIGURATION -sdk $XCODE_SDK analyze | bundle exec xcpretty
 - pod lib lint
