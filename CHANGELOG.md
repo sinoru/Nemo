@@ -1,3 +1,8 @@
+### 1.1.1
+##### Bug Fixes
+- Minor fixes
+
+
 ### 1.1
 ##### Enhancements
 - Swift 3.0 Support
