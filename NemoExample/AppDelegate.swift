@@ -1,13 +1,5 @@
 //
 //  AppDelegate.swift
-//  NemoExample
-//
-//  Created by Sinoru on 2015. 8. 8..
-//  Copyright (c) 2015년 Sinoru. All rights reserved.
-//
-
-//
-//  AppDelegate.swift
 //  Nemo
 //
 //  Created by Sinoru on 2015. 8. 8..
