@@ -19,7 +19,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "Nemo"
-  s.version      = "1.1"
+  s.version      = "1.1.1"
   s.summary      = "Photos Menu Framework for iOS"
 
   s.description  = <<-DESC
