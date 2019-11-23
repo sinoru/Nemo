@@ -13,3 +13,5 @@ jobs:
       uses: sinoru/actions-setup-xcode@master
       with:
         xcode-version: 10.0
+        apple-id: sinoru@me.com
+        apple-id-password: ${{ secrets.APPLE_ID_PASSWORD }}
